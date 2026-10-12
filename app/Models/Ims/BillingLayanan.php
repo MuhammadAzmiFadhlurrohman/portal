@@ -106,10 +106,10 @@ class BillingLayanan extends Model
         $now = Carbon::now();
         $isCurrentMonthInvoice = ((int)$this->bulan_tagihan === (int)$now->format('m') && (int)$this->tahun_tagihan === (int)$now->format('Y'));
 
-        // Prorate HANYA berlaku untuk tagihan bulan berjalan jika pelanggan suspend. 
-        // Tagihan masa lalu (tunggakan lama seperti Apr 2026 atau May 2026) adalah tunggakan penuh (100% normal).
+        // Prorate HANYA berlaku untuk tagihan bulan berjalan jika pelanggan suspend dan sebelumnya TIDAK aktif. 
+        // Tagihan masa lalu atau tagihan bagi pelanggan yang sebelumnya aktif adalah tagihan penuh (100% normal).
         if ($customer && $isCurrentMonthInvoice) {
-            return $customer->calculateProrate($baseAmount);
+            return $customer->calculateProrate($baseAmount, $this);
         }
 
         return [

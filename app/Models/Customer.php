@@ -288,7 +288,10 @@ class Customer extends Authenticatable
     public function getIsSuspendedAttribute(): bool
     {
         $statusReg = (string) ($this->status_reg ?? '');
-        return ($this->is_suspend === '1' || $this->is_suspend === 1 || $statusReg === '21' || $statusReg === '21.1');
+        if ($statusReg === '20') {
+            return false;
+        }
+        return ((string) $this->is_suspend === '2' || $statusReg === '21' || $statusReg === '21.1');
     }
 
     public function getStatusAttribute()
@@ -297,9 +300,67 @@ class Customer extends Authenticatable
     }
 
     /**
-     * Hitung kalkulasi prorate hari aktif jika pelanggan berstatus suspend
+     * Cek apakah pelanggan sebelumnya aktif (sebelum suspend / di periode sebelumnya)
      */
-    public function calculateProrate(?float $baseAmount = null): array
+    public function wasPreviouslyActive(?\App\Models\Ims\BillingLayanan $invoice = null): bool
+    {
+        // 1. Jika pelanggan saat ini berstatus aktif (misal status_reg == '20'), maka jelas aktif
+        if (!$this->is_suspended) {
+            return true;
+        }
+
+        // 2. Jika ada referensi invoice, periksa tagihan di bulan/periode sebelumnya
+        if ($invoice) {
+            $invMonth = (int) $invoice->bulan_tagihan;
+            $invYear = (int) $invoice->tahun_tagihan;
+
+            $prevMonth = $invMonth === 1 ? 12 : $invMonth - 1;
+            $prevYear = $invMonth === 1 ? $invYear - 1 : $invYear;
+
+            $prevInvoice = \App\Models\Ims\BillingLayanan::where('nomor_internet', $this->nomor_internet)
+                ->where('tahun_tagihan', $prevYear)
+                ->where(function ($q) use ($prevMonth) {
+                    $q->where('bulan_tagihan', $prevMonth)
+                      ->orWhere('bulan_tagihan', sprintf('%02d', $prevMonth));
+                })
+                ->first();
+
+            // Jika tagihan periode sebelumnya lunas, berarti sebelum periode ini pelanggan aktif
+            if ($prevInvoice && $prevInvoice->is_paid) {
+                return true;
+            }
+        }
+
+        // 3. Cek riwayat suspend di trx_suspend (kapan pelanggan mulai disuspend)
+        try {
+            $activeSuspend = \App\Models\Ims\Suspend::where('nomor_internet', $this->nomor_internet)
+                ->where('status_suspend', '12')
+                ->orderByDesc('date_create')
+                ->first();
+
+            if ($activeSuspend) {
+                $dateStr = $activeSuspend->suspend_start ?: $activeSuspend->date_create;
+                if ($dateStr) {
+                    $suspendDate = \Carbon\Carbon::parse($dateStr);
+                    if ($invoice) {
+                        $invoiceStart = \Carbon\Carbon::create((int) $invoice->tahun_tagihan, (int) $invoice->bulan_tagihan, 1, 0, 0, 0);
+                        // Jika suspend baru terbit di dalam bulan periode tagihan berjalan (misal baru terisolir tgl 25 karena telat bayar):
+                        // Berarti sebelum suspend tanggal tersebut, pelanggan SEBELUMNYA AKTIF
+                        if ($suspendDate->greaterThanOrEqualTo($invoiceStart)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        } catch (\Throwable $e) {}
+
+        return false;
+    }
+
+    /**
+     * Hitung kalkulasi prorate hari aktif jika pelanggan berstatus suspend dan sebelumnya TIDAK aktif
+     */
+    public function calculateProrate(?float $baseAmount = null, ?\App\Models\Ims\BillingLayanan $invoice = null): array
     {
         $basePrice = $baseAmount ?? (float) ($this->billing_amount ?: ($this->bandwith?->harga_bandwith ?? 250000));
         $isSuspended = $this->is_suspended;
@@ -312,7 +373,10 @@ class Customer extends Authenticatable
         $activeDays = max(1, ($totalDaysInMonth - $currentDay) + 1);
         $suspendedDays = max(0, $totalDaysInMonth - $activeDays);
 
-        if (!$isSuspended || $basePrice <= 0) {
+        // Jika pelanggan sebelumnya aktif, atau saat ini tidak berstatus suspend -> JANGAN hitung prorate (biaya normal penuh)
+        $wasPrevActive = $this->wasPreviouslyActive($invoice);
+
+        if (!$isSuspended || $wasPrevActive || $basePrice <= 0) {
             return [
                 'is_prorate' => false,
                 'base_amount' => $basePrice,
@@ -328,7 +392,7 @@ class Customer extends Authenticatable
             ];
         }
 
-        // Kalkulasi proporsional hari aktif
+        // Kalkulasi proporsional hari aktif (hanya bagi pelanggan yang sebelumnya memang sudah suspend / cuti berlangganan)
         $prorateAmount = (float) round(($activeDays / $totalDaysInMonth) * $basePrice);
         $discountAmount = max(0, (float) ($basePrice - $prorateAmount));
 
@@ -376,7 +440,7 @@ class Customer extends Authenticatable
                     ->orderByDesc('date_create')
                     ->first();
 
-                $wasSuspended = ($reg && (string)$reg->is_suspend === '1') || !empty($activeSuspend);
+                $wasSuspended = ($reg && ((string) $reg->is_suspend === '2' || (string) $reg->status_reg === '21' || (string) $reg->status_reg === '21.1')) || !empty($activeSuspend);
 
                 // 2. Jika sebelumnya suspend, lakukan Request Unsuspend (status 18)
                 if ($wasSuspended) {
