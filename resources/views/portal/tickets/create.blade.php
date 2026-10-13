@@ -96,21 +96,25 @@
                                 </div>
                             </label>
 
-                            <!-- Kat 17: Ubah Layanan -->
-                            <label 
-                                @click="katTiket = '17'"
-                                :class="katTiket === '17' ? 'border-emerald-500 bg-emerald-50/90 ring-2 ring-emerald-500/20 shadow-xs' : 'border-slate-200 bg-white/70 hover:border-emerald-300'"
-                                class="relative flex items-center gap-2 sm:gap-3 p-2 sm:p-3.5 rounded-xl sm:rounded-2xl border cursor-pointer transition-all"
+                            <!-- Kat 17: Ubah Layanan / Upgrade Paket (Disabled - Soon Launching) -->
+                            <div 
+                                class="relative flex items-center gap-2 sm:gap-3 p-2 sm:p-3.5 rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-100/70 text-slate-400 cursor-not-allowed select-none transition-all shadow-none"
+                                title="Fitur Upgrade Paket segera hadir (Soon Launching)"
                             >
-                                <input type="radio" name="kat_tiket" value="17" x-model="katTiket" class="sr-only">
-                                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                                <span class="absolute -top-2 right-2 px-1.5 py-0.5 rounded-md text-[8px] sm:text-[9px] font-heading font-extrabold bg-amber-100 border border-amber-300 text-amber-800 tracking-wide uppercase shadow-2xs">
+                                    Soon Launching
+                                </span>
+                                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-slate-200/90 text-slate-400 flex items-center justify-center shrink-0">
                                     <iconify-icon icon="solar:round-transfer-vertical-bold" width="16" class="sm:w-[18px]"></iconify-icon>
                                 </div>
                                 <div class="text-left min-w-0">
-                                    <div class="text-[11px] sm:text-xs font-bold text-slate-900 leading-tight truncate">Ubah Paket</div>
-                                    <div class="text-[9px] sm:text-[10px] text-slate-500 leading-tight truncate">Upgrade speed</div>
+                                    <div class="text-[11px] sm:text-xs font-bold text-slate-500 leading-tight truncate">Upgrade Paket</div>
+                                    <div class="text-[9px] sm:text-[10px] text-amber-600 font-semibold leading-tight truncate flex items-center gap-0.5 mt-0.5">
+                                        <iconify-icon icon="solar:clock-circle-bold" class="text-[10px] shrink-0"></iconify-icon>
+                                        <span>Soon Launching</span>
+                                    </div>
                                 </div>
-                            </label>
+                            </div>
 
                             <!-- Kat 13: Cek Coverage / Relokasi -->
                             <label 
@@ -1316,7 +1320,7 @@
 <script>
 function ticketFormData() {
     return {
-        katTiket: '{{ old('kat_tiket', request('category', request('kat_tiket', '11'))) }}',
+        katTiket: '{{ in_array(old('kat_tiket', request('category', request('kat_tiket', '11'))), ['11', '12', '13', '14', '15', '18']) ? old('kat_tiket', request('category', request('kat_tiket', '11'))) : '11' }}',
         showPassword: false,
         selectedPackageId: '{{ old('target_package_id', '') }}',
         packageCategoryTab: 'all',

@@ -231,6 +231,11 @@ class TicketController extends Controller
 
         $katTiket = (string) ($request->input('kat_tiket', '11'));
 
+        // Fitur upgrade / ubah paket dinonaktifkan sementara (Soon Launching)
+        if ($katTiket === '17') {
+            return back()->withInput()->with('error', 'Fitur Upgrade Paket sedang dalam tahap persiapan dan akan segera diluncurkan (Soon Launching).');
+        }
+
         // Validasi kondisional berdasarkan kategori tiket
         $rules = [
             'kat_tiket' => ['required', 'string'],

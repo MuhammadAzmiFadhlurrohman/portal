@@ -78,10 +78,11 @@
                         <iconify-icon icon="solar:danger-triangle-bold" class="text-amber-300 text-sm sm:text-base shrink-0"></iconify-icon>
                         <span>Lapor Gangguan</span>
                     </a>
-                    <a href="{{ route('portal.tickets.create', ['category' => '17']) }}" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-heading font-bold text-xs sm:text-sm shadow-md shadow-emerald-600/20 transition-all active:scale-95 text-center">
-                        <iconify-icon icon="solar:round-transfer-vertical-bold" class="text-white text-sm sm:text-base shrink-0"></iconify-icon>
+                    <div class="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-slate-800/80 text-slate-300 font-heading font-bold text-xs sm:text-sm border border-slate-700/80 shadow-xs cursor-not-allowed select-none text-center opacity-80" title="Fitur Upgrade Paket segera hadir (Soon Launching)">
+                        <iconify-icon icon="solar:round-transfer-vertical-bold" class="text-slate-400 text-sm sm:text-base shrink-0"></iconify-icon>
                         <span>Upgrade Paket</span>
-                    </a>
+                        <span class="px-1.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-400/30 text-[9px] font-mono font-bold uppercase tracking-wider">Soon Launching</span>
+                    </div>
                 </div>
 
             </div>
