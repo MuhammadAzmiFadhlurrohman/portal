@@ -476,9 +476,16 @@
                                         if (this.$refs.proofFileInput) {
                                             this.$refs.proofFileInput.value = '';
                                         }
+                                    },
+                                    handleSubmit(e) {
+                                        if (this.isSubmitting) {
+                                            e.preventDefault();
+                                            return false;
+                                        }
+                                        this.isSubmitting = true;
                                     }
                                 }"
-                                @submit="if(isSubmitting) { $event.preventDefault(); return false; } isSubmitting = true;"
+                                @submit="handleSubmit($event)"
                             >
                                 @csrf
                                 <!-- Section Header: Judul Utama Konfirmasi Transfer -->
@@ -615,24 +622,27 @@
                                     <textarea name="notes" rows="2" placeholder="Contoh: Sudah ditransfer via BCA..." class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 focus:bg-white focus:border-sky-500 text-xs resize-none"></textarea>
                                 </div>
 
-                                <!-- Submit Button with Loading State -->
+                                <!-- Submit Button with Immediate Spinner & Double-Click Prevention -->
                                 <button 
                                     type="submit" 
                                     :disabled="isSubmitting"
-                                    class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-heading font-extrabold text-xs sm:text-sm shadow-md shadow-emerald-500/20 active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
+                                    :class="isSubmitting ? 'pointer-events-none opacity-80 cursor-wait' : 'cursor-pointer active:scale-98'"
+                                    class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-heading font-extrabold text-xs sm:text-sm shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center gap-2 select-none"
                                 >
-                                    <template x-if="!isSubmitting">
-                                        <span class="inline-flex items-center gap-2">
-                                            <iconify-icon icon="solar:plain-bold" class="text-sm"></iconify-icon>
-                                            <span>Kirim Bukti Pembayaran</span>
-                                        </span>
-                                    </template>
-                                    <template x-if="isSubmitting">
-                                        <span class="inline-flex items-center gap-2">
-                                            <iconify-icon icon="solar:spinner-line" class="animate-spin text-base"></iconify-icon>
-                                            <span>Mengirim Bukti Pembayaran...</span>
-                                        </span>
-                                    </template>
+                                    <!-- State Normal -->
+                                    <span x-show="!isSubmitting" class="inline-flex items-center gap-2">
+                                        <iconify-icon icon="solar:plain-bold" class="text-sm"></iconify-icon>
+                                        <span>Kirim Bukti Transfer</span>
+                                    </span>
+
+                                    <!-- State Loading (Langsung muter, anti klik 2x) -->
+                                    <span x-show="isSubmitting" x-cloak class="inline-flex items-center gap-2">
+                                        <svg class="animate-spin w-4 h-4 text-white shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        <span>Mengirim Bukti Transfer...</span>
+                                    </span>
                                 </button>
                             </form>
                         </div>
@@ -1067,9 +1077,16 @@
                         if (this.$refs.modalProofFileInput) {
                             this.$refs.modalProofFileInput.value = '';
                         }
+                    },
+                    handleModalSubmit(e) {
+                        if (this.isModalSubmitting) {
+                            e.preventDefault();
+                            return false;
+                        }
+                        this.isModalSubmitting = true;
                     }
                 }"
-                @submit="if(isModalSubmitting) { $event.preventDefault(); return false; } isModalSubmitting = true;"
+                @submit="handleModalSubmit($event)"
             >
                 @csrf
                 <!-- Subjudul 1: Dropdown Pilihan Transfer Kemana -->
@@ -1200,20 +1217,23 @@
                     <button 
                         type="submit" 
                         :disabled="isModalSubmitting"
-                        class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-heading font-extrabold text-xs shadow-md shadow-emerald-600/20 active:scale-95 transition-all cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed flex items-center gap-1.5"
+                        :class="isModalSubmitting ? 'pointer-events-none opacity-80 cursor-wait' : 'cursor-pointer active:scale-95'"
+                        class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-heading font-extrabold text-xs shadow-md shadow-emerald-600/20 transition-all flex items-center gap-1.5 select-none"
                     >
-                        <template x-if="!isModalSubmitting">
-                            <span class="inline-flex items-center gap-1.5">
-                                <iconify-icon icon="solar:plain-bold" class="text-sm"></iconify-icon>
-                                <span>Kirim Bukti Pembayaran</span>
-                            </span>
-                        </template>
-                        <template x-if="isModalSubmitting">
-                            <span class="inline-flex items-center gap-1.5">
-                                <iconify-icon icon="solar:spinner-line" class="animate-spin text-sm"></iconify-icon>
-                                <span>Mengirim...</span>
-                            </span>
-                        </template>
+                        <!-- State Normal -->
+                        <span x-show="!isModalSubmitting" class="inline-flex items-center gap-1.5">
+                            <iconify-icon icon="solar:plain-bold" class="text-sm"></iconify-icon>
+                            <span>Kirim Bukti Transfer</span>
+                        </span>
+
+                        <!-- State Loading (Langsung muter, anti klik 2x) -->
+                        <span x-show="isModalSubmitting" x-cloak class="inline-flex items-center gap-1.5">
+                            <svg class="animate-spin w-3.5 h-3.5 text-white shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span>Mengirim...</span>
+                        </span>
                     </button>
                 </div>
             </form>
