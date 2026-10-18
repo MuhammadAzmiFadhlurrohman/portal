@@ -628,8 +628,34 @@
             }, 1000);
         }
 
+        let lastTokenRefresh = Date.now();
+
+        // Segarkan CSRF token secara asinkronus tanpa me-reload halaman
+        async function refreshCsrfToken() {
+            try {
+                const res = await fetch("{{ route('csrf.token') }}", {
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.token) {
+                        lastTokenRefresh = Date.now();
+                        const meta = document.querySelector('meta[name="csrf-token"]');
+                        if (meta) meta.setAttribute('content', data.token);
+                        document.querySelectorAll('input[name="_token"]').forEach(input => {
+                            input.value = data.token;
+                        });
+                        return data.token;
+                    }
+                }
+            } catch (e) {
+                console.warn('Gagal memuat ulang CSRF token:', e);
+            }
+            return null;
+        }
+
         // Handle request kirim OTP WhatsApp
-        async function handleSendOtp(phone) {
+        async function handleSendOtp(phone, isRetry = false) {
             const btnSubmit = document.getElementById('btnSubmit');
             const btnText = document.getElementById('btnText');
             const btnLoading = document.getElementById('btnLoading');
@@ -659,6 +685,16 @@
                     body: JSON.stringify({ phone: phone })
                 });
 
+                // Jika terdeteksi token kedaluwarsa (419), perbarui token dan coba kirim ulang sekali
+                if (res.status === 419) {
+                    const newToken = await refreshCsrfToken();
+                    if (newToken && !isRetry) {
+                        return handleSendOtp(phone, true);
+                    }
+                    showDynamicAlert('warning', 'Sesi keamanan halaman telah diperbarui. Silakan klik KIRIM KODE OTP sekali lagi.');
+                    return;
+                }
+
                 const data = await res.json();
 
                 if (res.ok && data.success) {
@@ -670,6 +706,12 @@
                         console.info('DEMO LOCAL OTP:', data.debug_otp);
                     }
                 } else {
+                    if (data && data.csrf_expired) {
+                        await refreshCsrfToken();
+                        if (!isRetry) {
+                            return handleSendOtp(phone, true);
+                        }
+                    }
                     showDynamicAlert('error', data.message || 'Gagal mengirim kode verifikasi.');
                 }
             } catch (err) {
@@ -687,7 +729,7 @@
         }
 
         // Handle verifikasi kode OTP
-        async function handleVerifyOtp(otp) {
+        async function handleVerifyOtp(otp, isRetry = false) {
             const btnSubmit = document.getElementById('btnSubmit');
             const btnText = document.getElementById('btnText');
             const btnLoading = document.getElementById('btnLoading');
@@ -720,12 +762,27 @@
                     })
                 });
 
+                if (res.status === 419) {
+                    const newToken = await refreshCsrfToken();
+                    if (newToken && !isRetry) {
+                        return handleVerifyOtp(otp, true);
+                    }
+                    showDynamicAlert('warning', 'Sesi keamanan halaman telah diperbarui. Silakan tekan tombol verifikasi sekali lagi.');
+                    return;
+                }
+
                 const data = await res.json();
 
                 if (res.ok && data.success) {
                     showDynamicAlert('success', data.message || 'Verifikasi berhasil! Mengalihkan...');
                     window.location.href = data.redirect || "{{ route('portal.dashboard') }}";
                 } else {
+                    if (data && data.csrf_expired) {
+                        await refreshCsrfToken();
+                        if (!isRetry) {
+                            return handleVerifyOtp(otp, true);
+                        }
+                    }
                     showDynamicAlert('error', data.message || 'Kode verifikasi tidak valid.');
                     btnSubmit.disabled = false;
                     if (btnIconContainer) btnIconContainer.classList.remove('hidden');
@@ -759,6 +816,26 @@
             handleSendOtp(activePhoneTarget);
         }
 
+        // Pemantau Aktivitas Tab: Jika pengguna kembali ke tab setelah lama, segarkan token CSRF otomatis
+        document.addEventListener('visibilitychange', function () {
+            if (document.visibilityState === 'visible') {
+                if (Date.now() - lastTokenRefresh > 5 * 60 * 1000) {
+                    refreshCsrfToken();
+                }
+            }
+        });
+
+        window.addEventListener('focus', function () {
+            if (Date.now() - lastTokenRefresh > 5 * 60 * 1000) {
+                refreshCsrfToken();
+            }
+        });
+
+        // Heartbeat berkala tiap 10 menit agar sesi dan token tetap aktif di browser
+        setInterval(function () {
+            refreshCsrfToken();
+        }, 10 * 60 * 1000);
+
         document.addEventListener('DOMContentLoaded', function () {
             const loginInput = document.getElementById('loginInput');
             if (loginInput && loginInput.value) {
@@ -773,7 +850,7 @@
 
             // Form submit dispatcher
             if (loginForm) {
-                loginForm.addEventListener('submit', function (e) {
+                loginForm.addEventListener('submit', async function (e) {
                     if (currentLoginMode === 'phone') {
                         e.preventDefault();
 
@@ -803,6 +880,20 @@
                         if (btnSubmit.disabled) {
                             e.preventDefault();
                             return false;
+                        }
+
+                        // Jika tab telah dibuka lebih dari 15 menit, segarkan CSRF token sejenak sebelum submit
+                        if (Date.now() - lastTokenRefresh > 15 * 60 * 1000) {
+                            e.preventDefault();
+                            btnSubmit.disabled = true;
+                            if (btnText) btnText.classList.add('hidden');
+                            if (btnLoading) {
+                                btnLoading.classList.remove('hidden');
+                                btnLoading.classList.add('inline-flex');
+                            }
+                            await refreshCsrfToken();
+                            loginForm.submit();
+                            return;
                         }
 
                         btnSubmit.disabled = true;

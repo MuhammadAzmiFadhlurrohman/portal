@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Login Admin Portal — PT Media Solusi Network</title>
     
     <!-- Favicon -->
@@ -82,6 +83,13 @@
         <!-- Login Card -->
         <div class="login-card rounded-3xl p-7 sm:p-8">
             
+            @if(session('warning'))
+                <div class="mb-5 p-3.5 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-sans flex items-center gap-2.5">
+                    <iconify-icon icon="solar:clock-circle-bold" class="text-base shrink-0 text-amber-400"></iconify-icon>
+                    <span>{{ session('warning') }}</span>
+                </div>
+            @endif
+
             @if(session('info'))
                 <div class="mb-5 p-3.5 rounded-2xl bg-sky-500/15 border border-sky-500/30 text-sky-300 text-xs font-sans flex items-center gap-2.5">
                     <iconify-icon icon="solar:info-circle-bold" class="text-base shrink-0"></iconify-icon>
@@ -174,5 +182,50 @@
 
     </div>
 
+    <script>
+        let lastTokenRefresh = Date.now();
+
+        async function refreshCsrfToken() {
+            try {
+                const res = await fetch("{{ route('csrf.token') }}", {
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.token) {
+                        lastTokenRefresh = Date.now();
+                        const meta = document.querySelector('meta[name="csrf-token"]');
+                        if (meta) meta.setAttribute('content', data.token);
+                        document.querySelectorAll('input[name="_token"]').forEach(input => {
+                            input.value = data.token;
+                        });
+                        return data.token;
+                    }
+                }
+            } catch (e) {
+                console.warn('Gagal memuat ulang CSRF token:', e);
+            }
+            return null;
+        }
+
+        // Segarkan token saat pengguna kembali ke tab
+        document.addEventListener('visibilitychange', function () {
+            if (document.visibilityState === 'visible') {
+                if (Date.now() - lastTokenRefresh > 5 * 60 * 1000) {
+                    refreshCsrfToken();
+                }
+            }
+        });
+
+        window.addEventListener('focus', function () {
+            if (Date.now() - lastTokenRefresh > 5 * 60 * 1000) {
+                refreshCsrfToken();
+            }
+        });
+
+        setInterval(function () {
+            refreshCsrfToken();
+        }, 10 * 60 * 1000);
+    </script>
 </body>
 </html>

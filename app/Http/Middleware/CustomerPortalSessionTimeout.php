@@ -27,6 +27,15 @@ class CustomerPortalSessionTimeout
                 $request->session()->invalidate();
                 $request->session()->regenerateToken();
 
+                if ($request->expectsJson() || $request->ajax()) {
+                    return response()->json([
+                        'success' => false,
+                        'session_expired' => true,
+                        'message' => 'Sesi login Anda telah berakhir otomatis karena tidak ada aktivitas selama 1 jam. Silakan masuk kembali.',
+                        'redirect' => route('portal.login'),
+                    ], 401);
+                }
+
                 return redirect()->route('portal.login')
                     ->with('warning', 'Sesi login Anda telah berakhir otomatis karena tidak ada aktivitas selama 1 jam. Silakan masuk kembali.');
             }

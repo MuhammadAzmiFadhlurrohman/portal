@@ -31,6 +31,11 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::post('/coverage/check', [CoverageController::class, 'check'])->name('coverage.check');
 Route::get('/coverage/areas', [CoverageController::class, 'areas'])->name('coverage.areas');
 Route::get('/coverage/odps', [CoverageController::class, 'odps'])->name('coverage.odps');
+Route::get('/csrf-token', function () {
+    return response()->json([
+        'token' => csrf_token(),
+    ]);
+})->name('csrf.token');
 
 /*
 |--------------------------------------------------------------------------
