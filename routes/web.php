@@ -37,6 +37,10 @@ Route::get('/csrf-token', function () {
     ]);
 })->name('csrf.token');
 
+Route::get('/error-419', function () {
+    return view('errors.419');
+})->name('error.419');
+
 /*
 |--------------------------------------------------------------------------
 | Portal Pelanggan (Customer Portal) Routes
