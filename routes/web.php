@@ -11,26 +11,26 @@ use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TicketController as AdminTicketController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\CoverageController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Portal\AuthController as PortalAuthController;
 use App\Http\Controllers\Portal\BillingController as PortalBillingController;
 use App\Http\Controllers\Portal\DashboardController as PortalDashboardController;
 use App\Http\Controllers\Portal\ProfileController as PortalProfileController;
 use App\Http\Controllers\Portal\TicketController as PortalTicketController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Public Routes
+| Root & Utility Routes (Redirect langsung ke Portal Pelanggan)
 |--------------------------------------------------------------------------
 */
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-Route::post('/coverage/check', [CoverageController::class, 'check'])->name('coverage.check');
-Route::get('/coverage/areas', [CoverageController::class, 'areas'])->name('coverage.areas');
-Route::get('/coverage/odps', [CoverageController::class, 'odps'])->name('coverage.odps');
+Route::get('/', function () {
+    if (Auth::guard('customer')->check()) {
+        return redirect()->route('portal.dashboard');
+    }
+    return redirect()->route('portal.login');
+})->name('home');
+
 Route::get('/csrf-token', function () {
     return response()->json([
         'token' => csrf_token(),

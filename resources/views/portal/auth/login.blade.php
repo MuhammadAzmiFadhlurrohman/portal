@@ -145,7 +145,7 @@
             <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-36 h-36 bg-sky-400/25 rounded-full blur-2xl pointer-events-none"></div>
             
             <!-- Logo Icon Container (Fixed 59px box) -->
-            <a href="{{ route('home') }}" class="group block mb-1.5 sm:mb-2 transform hover:scale-105 transition-transform duration-300 relative z-10 shrink-0">
+            <a href="{{ route('portal.login') }}" class="group block mb-1.5 sm:mb-2 transform hover:scale-105 transition-transform duration-300 relative z-10 shrink-0">
                 <div class="w-[59px] h-[59px] rounded-2xl bg-white p-2 shadow-xl shadow-sky-950/60 border border-white/90 flex items-center justify-center mx-auto" style="width: 59px; height: 59px;">
                     <img 
                         src="{{ asset('images/logo/logo-icon.png') }}" 
@@ -399,9 +399,6 @@
                     <a href="https://wa.me/{{ config('company.whatsapp', '6289696629955') }}?text={{ urlencode('Halo Tim NOC PT MSN, saya butuh bantuan terkait layanan internet') }}" target="_blank" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white border border-slate-200/80 shadow-xs flex items-center justify-center text-emerald-500 hover:scale-110 hover:bg-emerald-50 transition-all" title="Hubungi WhatsApp NOC MSN">
                         <iconify-icon icon="logos:whatsapp-icon" width="17"></iconify-icon>
                     </a>
-                    <a href="{{ route('home') }}" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white border border-slate-200/80 shadow-xs flex items-center justify-center text-sky-500 hover:scale-110 hover:bg-sky-50 transition-all" title="Website Resmi MSN">
-                        <iconify-icon icon="solar:global-bold" width="17"></iconify-icon>
-                    </a>
                 </div>
 
                 <!-- Footer: Register / Web Link -->
@@ -412,12 +409,6 @@
                             Daftar Sekarang
                         </a>
                     </p>
-                    <div class="mt-0.5">
-                        <a href="{{ route('home') }}" class="inline-flex items-center gap-1 text-[10px] text-slate-400 hover:text-slate-600 transition-colors">
-                            <iconify-icon icon="solar:arrow-left-linear"></iconify-icon>
-                            <span>Kembali ke Halaman Utama</span>
-                        </a>
-                    </div>
                 </div>
             </div>
 

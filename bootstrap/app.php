@@ -13,10 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectTo(
             guests: function (\Illuminate\Http\Request $request) {
-                if ($request->is('portal*')) {
-                    return route('portal.login');
+                if ($request->is('admin*')) {
+                    return route('admin.login');
                 }
-                return route('admin.login');
+                return route('portal.login');
             }
         );
 
@@ -25,8 +25,6 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->validateCsrfTokens(except: [
-            'coverage/check',
-            'contact',
             'portal/logout',
             'portal/logout/*',
             'admin/logout',

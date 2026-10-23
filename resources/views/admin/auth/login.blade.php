@@ -171,9 +171,9 @@
 
         <!-- Footer Links -->
         <div class="text-center mt-7 space-y-2">
-            <a href="{{ route('home') }}" class="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-[#38bdf8] transition-colors font-mono">
+            <a href="{{ route('portal.login') }}" class="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-[#38bdf8] transition-colors font-mono">
                 <iconify-icon icon="solar:arrow-left-linear"></iconify-icon>
-                <span>Kembali ke Halaman Utama</span>
+                <span>Ke Portal Pelanggan</span>
             </a>
             <div class="text-[11px] text-slate-500 font-mono">
                 &copy; {{ date('Y') }} PT Media Solusi Network. All rights reserved.

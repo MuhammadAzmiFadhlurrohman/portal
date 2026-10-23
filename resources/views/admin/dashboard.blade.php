@@ -18,9 +18,9 @@
                 <iconify-icon icon="solar:pen-new-square-bold" width="14"></iconify-icon>
                 <span>Edit Konten</span>
             </a>
-            <a href="{{ route('home') }}" target="_blank" class="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-heading font-semibold text-xs transition-all border border-white/15 flex items-center gap-1">
+            <a href="{{ route('portal.login') }}" target="_blank" class="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-heading font-semibold text-xs transition-all border border-white/15 flex items-center gap-1">
                 <iconify-icon icon="solar:link-bold" width="14"></iconify-icon>
-                <span>Lihat Web</span>
+                <span>Portal Pelanggan</span>
             </a>
         </div>
     </div>

@@ -183,8 +183,8 @@
 
             <!-- Bottom Live Site Link -->
             <div class="p-3 border-t border-white/10">
-                <a href="{{ route('home') }}" target="_blank" class="flex items-center justify-center gap-1.5 w-full py-2 px-3 rounded-lg bg-white/[0.04] hover:bg-white/10 text-[11px] font-heading font-semibold text-slate-300 transition-colors border border-white/10">
-                    <span>Lihat Website</span>
+                <a href="{{ route('portal.login') }}" target="_blank" class="flex items-center justify-center gap-1.5 w-full py-2 px-3 rounded-lg bg-white/[0.04] hover:bg-white/10 text-[11px] font-heading font-semibold text-slate-300 transition-colors border border-white/10">
+                    <span>Portal Pelanggan</span>
                     <iconify-icon icon="solar:arrow-right-up-linear" width="14"></iconify-icon>
                 </a>
             </div>
