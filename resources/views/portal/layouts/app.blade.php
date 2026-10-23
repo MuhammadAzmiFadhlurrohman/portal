@@ -39,14 +39,20 @@
         }
     </script>
 
-    <!-- Iconify Web Component -->
-    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <!-- DNS Prefetch & Preconnect for Fast External Asset Handshake -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//code.iconify.design">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+
+    <!-- Iconify Web Component (Deferred Non-Blocking) -->
+    <script defer src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
     
-    <!-- Alpine.js -->
+    <!-- Alpine.js (Deferred) -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SweetAlert2 (Deferred) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Portal Custom CSS (Cached by file modification time) -->
     <link rel="stylesheet" href="{{ asset('css/portal.css') }}?v={{ file_exists(public_path('css/portal.css')) ? filemtime(public_path('css/portal.css')) : '1.0' }}">
@@ -453,44 +459,11 @@
             resetIdleTimer();
         })();
 
-        // Ultra-Fast Speculative Link Prefetcher & Non-Blocking Top Progress Bar
+        // Non-Blocking Top Progress Bar saat navigasi halaman
         (function() {
-            const prefetchedUrls = new Set();
             const loader = document.getElementById('portal-page-loader');
 
-            function prefetch(url) {
-                if (!url || prefetchedUrls.has(url)) return;
-                try {
-                    const parsed = new URL(url, window.location.origin);
-                    if (parsed.origin !== window.location.origin) return;
-                    if (parsed.pathname === window.location.pathname) return;
-                    if (parsed.pathname.includes('logout') || parsed.pathname.includes('pay') || parsed.pathname.includes('transfer')) return;
-
-                    prefetchedUrls.add(url);
-                    const link = document.createElement('link');
-                    link.rel = 'prefetch';
-                    link.href = url;
-                    link.as = 'document';
-                    document.head.appendChild(link);
-                } catch(e) {}
-            }
-
-            // Hover & Touch Prefetching for Near-Instant Page Transitions
-            document.addEventListener('mouseover', function(e) {
-                const a = e.target.closest('a[href]');
-                if (a && a.href && !a.target && !a.href.startsWith('javascript:')) {
-                    prefetch(a.href);
-                }
-            }, { passive: true });
-
-            document.addEventListener('touchstart', function(e) {
-                const a = e.target.closest('a[href]');
-                if (a && a.href && !a.target && !a.href.startsWith('javascript:')) {
-                    prefetch(a.href);
-                }
-            }, { passive: true });
-
-            // Visual Instant Loading Bar when navigating
+            // Visual Loading Bar saat user mengklik link navigasi
             document.addEventListener('click', function(e) {
                 const a = e.target.closest('a[href]');
                 if (a && a.href && !a.target && !a.href.startsWith('javascript:') && !a.href.includes('#')) {
@@ -512,7 +485,7 @@
                     setTimeout(() => {
                         loader.classList.remove('active', 'finish');
                         loader.style.width = '0%';
-                    }, 300);
+                    }, 250);
                 }
             });
         })();

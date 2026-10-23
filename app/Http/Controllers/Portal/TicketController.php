@@ -112,11 +112,11 @@ class TicketController extends Controller
             });
         }
 
-        $allTickets = $ticketsQuery->get();
-        $allUbah = $ubahQuery->get();
-        $allSuspend = $suspendQuery->get();
-        $allTerminasi = $terminasiQuery->get();
-        $allBillingRequests = $billingRequestQuery->get();
+        $allTickets = $ticketsQuery->take(50)->get();
+        $allUbah = $ubahQuery->take(50)->get();
+        $allSuspend = $suspendQuery->take(50)->get();
+        $allTerminasi = $terminasiQuery->take(50)->get();
+        $allBillingRequests = $billingRequestQuery->take(50)->get();
 
         $merged = $allTickets
             ->concat($allUbah)
@@ -228,6 +228,10 @@ class TicketController extends Controller
     {
         /** @var \App\Models\Customer $customer */
         $customer = Auth::guard('customer')->user();
+
+        if ($customer) {
+            \Illuminate\Support\Facades\Cache::forget("portal_dash_summary_{$customer->nomor_internet}");
+        }
 
         $katTiket = (string) ($request->input('kat_tiket', '11'));
 

@@ -55,15 +55,22 @@
         }
     </script>
 
-    <!-- Iconify Web Component -->
-    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <!-- DNS Prefetch for Fast External Asset Resolution -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//code.iconify.design">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//unpkg.com">
 
-    <!-- GSAP 3.12.5 & ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Iconify Web Component (Deferred) -->
+    <script defer src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 
-    <!-- Lenis 1.1.13 Smooth Scroll -->
-    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+    <!-- GSAP 3.12.5 & ScrollTrigger (Deferred) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Lenis 1.1.13 Smooth Scroll (Deferred) -->
+    <script defer src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
