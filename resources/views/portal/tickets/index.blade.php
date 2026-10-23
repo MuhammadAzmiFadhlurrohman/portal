@@ -87,7 +87,7 @@
         <!-- First Ticket Item (1 Data Saja Diperlihatkan di Tour Highlight) -->
         @if($tickets->count() > 0)
             @php $firstTicket = $tickets->first(); @endphp
-            <a href="{{ route('portal.tickets.show', $firstTicket->id) }}" class="portal-card portal-card-hover rounded-2xl sm:rounded-3xl p-4 sm:p-5.5 block group overflow-hidden border border-slate-200/85 bg-white/95 transition-all shadow-sm hover:shadow-md hover:border-sky-300">
+            <div class="portal-card rounded-2xl sm:rounded-3xl p-4 sm:p-5.5 overflow-hidden border border-slate-200/85 bg-white/95 shadow-sm">
                 <div class="space-y-3">
                     
                     <!-- Row 1: Nomor Tiket & Kategori (Kiri) vs Status Pill (Kanan) -->
@@ -122,7 +122,7 @@
 
                     <!-- Row 3: Judul & Deskripsi Singkat -->
                     <div class="space-y-1">
-                        <h3 class="text-xs sm:text-base font-heading font-extrabold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug">
+                        <h3 class="text-xs sm:text-base font-heading font-extrabold text-slate-900 leading-snug">
                             {{ $firstTicket->subject }}
                         </h3>
                         <p class="text-[11px] sm:text-xs text-slate-600 line-clamp-2 leading-relaxed font-sans">
@@ -148,14 +148,14 @@
                             @endif
                         </div>
 
-                        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-50 group-hover:bg-sky-600 text-sky-600 group-hover:text-white text-xs font-heading font-bold transition-all shadow-2xs">
+                        <a href="{{ route('portal.tickets.show', $firstTicket->id) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-600 text-sky-600 hover:text-white text-xs font-heading font-bold transition-all shadow-2xs active:scale-95 group/btn" title="Lihat Progres Tiket" aria-label="Lihat Progres Tiket">
                             <span>Lihat Progres</span>
-                            <iconify-icon icon="solar:alt-arrow-right-bold" class="text-xs group-hover:translate-x-0.5 transition-transform"></iconify-icon>
-                        </div>
+                            <iconify-icon icon="solar:alt-arrow-right-bold" class="text-xs group-hover/btn:translate-x-0.5 transition-transform"></iconify-icon>
+                        </a>
                     </div>
 
                 </div>
-            </a>
+            </div>
         @else
             <!-- Compact Empty State on Mobile -->
             <div class="portal-card rounded-2xl sm:rounded-3xl p-6 sm:p-12 text-center space-y-3 sm:space-y-4 border border-slate-200/80 bg-white/95">
@@ -183,7 +183,7 @@
     @if($tickets->count() > 1)
         <div class="space-y-2.5 sm:space-y-3">
             @foreach($tickets->slice(1) as $ticket)
-                <a href="{{ route('portal.tickets.show', $ticket->id) }}" class="portal-card portal-card-hover rounded-2xl sm:rounded-3xl p-4 sm:p-5.5 block group overflow-hidden border border-slate-200/85 bg-white/95 transition-all shadow-sm hover:shadow-md hover:border-sky-300">
+                <div class="portal-card rounded-2xl sm:rounded-3xl p-4 sm:p-5.5 overflow-hidden border border-slate-200/85 bg-white/95 shadow-sm">
                     <div class="space-y-3">
                         
                         <!-- Row 1: Nomor Tiket & Kategori (Kiri) vs Status Pill (Kanan) -->
@@ -218,7 +218,7 @@
 
                         <!-- Row 3: Judul & Deskripsi Singkat -->
                         <div class="space-y-1">
-                            <h3 class="text-xs sm:text-base font-heading font-extrabold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug">
+                            <h3 class="text-xs sm:text-base font-heading font-extrabold text-slate-900 leading-snug">
                                 {{ $ticket->subject }}
                             </h3>
                             <p class="text-[11px] sm:text-xs text-slate-600 line-clamp-2 leading-relaxed font-sans">
@@ -244,14 +244,14 @@
                                 @endif
                             </div>
 
-                            <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-50 group-hover:bg-sky-600 text-sky-600 group-hover:text-white text-xs font-heading font-bold transition-all shadow-2xs">
+                            <a href="{{ route('portal.tickets.show', $ticket->id) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-600 text-sky-600 hover:text-white text-xs font-heading font-bold transition-all shadow-2xs active:scale-95 group/btn" title="Lihat Progres Tiket" aria-label="Lihat Progres Tiket">
                                 <span>Lihat Progres</span>
-                                <iconify-icon icon="solar:alt-arrow-right-bold" class="text-xs group-hover:translate-x-0.5 transition-transform"></iconify-icon>
-                            </div>
+                                <iconify-icon icon="solar:alt-arrow-right-bold" class="text-xs group-hover/btn:translate-x-0.5 transition-transform"></iconify-icon>
+                            </a>
                         </div>
 
                     </div>
-                </a>
+                </div>
             @endforeach
         </div>
     @endif
