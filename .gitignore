@@ -26,5 +26,6 @@ Thumbs.db
 /gomsn
 /ims_v2
 bootstrap/cache/*.php
-
+*.md
+!README.md
 
