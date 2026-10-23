@@ -228,7 +228,7 @@
             @if($recentTickets->count() > 0)
                 <div class="space-y-2.5 sm:space-y-3">
                     @foreach($recentTickets as $ticket)
-                        <a href="{{ route('portal.tickets.show', $ticket->id) }}" class="portal-card portal-card-hover rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 block group overflow-hidden">
+                        <div class="portal-card rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 overflow-hidden">
                             <div class="space-y-1 sm:space-y-1.5 flex-1 min-w-0">
                                 <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                                     <span class="text-[11px] sm:text-xs font-mono font-bold text-sky-700 bg-sky-50 border border-sky-200 px-2 py-0.5 rounded-md sm:rounded-lg shrink-0">
@@ -244,7 +244,7 @@
                                         {{ $ticket->created_at->diffForHumans() }}
                                     </span>
                                 </div>
-                                <h3 class="text-xs sm:text-sm lg:text-base font-heading font-bold text-slate-900 group-hover:text-sky-600 transition-colors truncate">
+                                <h3 class="text-xs sm:text-sm lg:text-base font-heading font-bold text-slate-900 truncate">
                                     {{ $ticket->subject }}
                                 </h3>
                                 <p class="text-[11px] sm:text-xs text-slate-500 truncate">
@@ -259,11 +259,11 @@
                                         <span class="text-slate-700 font-semibold text-xs">{{ $ticket->technician_name }}</span>
                                     </div>
                                 @endif
-                                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-slate-100 group-hover:bg-sky-600 group-hover:text-white flex items-center justify-center text-slate-400 transition-all ml-auto sm:ml-0">
+                                <a href="{{ route('portal.tickets.show', $ticket->id) }}" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-slate-100 hover:bg-sky-600 text-slate-400 hover:text-white flex items-center justify-center transition-all ml-auto sm:ml-0 shadow-2xs active:scale-95" title="Lihat detail laporan kendala" aria-label="Lihat detail laporan kendala">
                                     <iconify-icon icon="solar:arrow-right-linear" class="text-sm sm:text-base"></iconify-icon>
-                                </div>
+                                </a>
                             </div>
-                        </a>
+                        </div>
                     @endforeach
                 </div>
             @else
