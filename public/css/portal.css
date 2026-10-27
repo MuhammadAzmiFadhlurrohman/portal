@@ -130,34 +130,34 @@
     pointer-events: none;
 }
 
-/* Stat KPI Cards (Mockup Design) */
+/* Stat KPI Cards (Mockup Design - Compact & Proportional) */
 .kpi-stat-card {
     background: #ffffff !important;
-    border-radius: 24px !important;
-    padding: 1rem 1rem 0 1rem !important;
-    box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.05) !important;
+    border-radius: 20px !important;
+    padding: 0.85rem 0.85rem 0 0.85rem !important;
+    box-shadow: 0 3px 14px -3px rgba(15, 23, 42, 0.05) !important;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 195px;
+    min-height: 148px;
     contain: layout style;
     transform: translateZ(0);
 }
 
 @media (min-width: 640px) {
     .kpi-stat-card {
-        border-radius: 26px !important;
-        padding: 1.25rem 1.25rem 0 1.25rem !important;
-        min-height: 215px;
+        border-radius: 22px !important;
+        padding: 1rem 1rem 0 1rem !important;
+        min-height: 160px;
     }
 }
 
 .kpi-stat-card:hover {
     transform: translateY(-2px) translateZ(0);
-    box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.08) !important;
+    box-shadow: 0 10px 24px -5px rgba(15, 23, 42, 0.08) !important;
 }
 
 .kpi-stat-card.kpi-blue {
@@ -193,10 +193,10 @@
 }
 
 .kpi-stat-footer {
-    margin-left: -1rem;
-    margin-right: -1rem;
-    margin-top: 0.875rem;
-    padding: 0.625rem 0.875rem;
+    margin-left: -0.85rem;
+    margin-right: -0.85rem;
+    margin-top: 0.5rem;
+    padding: 0.45rem 0.75rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -207,10 +207,10 @@
 
 @media (min-width: 640px) {
     .kpi-stat-footer {
-        margin-left: -1.25rem;
-        margin-right: -1.25rem;
-        margin-top: 1rem;
-        padding: 0.75rem 1.125rem;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        margin-top: 0.65rem;
+        padding: 0.5rem 0.875rem;
     }
 }
 

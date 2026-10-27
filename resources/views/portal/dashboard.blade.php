@@ -113,17 +113,22 @@
     </div>
 
     <!-- Status 4 KPI Cards Grid (Compact 2x2 on Mobile, 4 Cols on Desktop - Mockup Style) -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5">
         
         <!-- Card 1: Paket Layanan (Blue) -->
         <div id="tour-step-package" class="kpi-stat-card kpi-blue group flex flex-col justify-between">
-            <div class="space-y-3">
+            <div class="space-y-1.5 sm:space-y-2">
                 <!-- Top Row: Circle Icon & Status Badge -->
                 <div class="flex items-center justify-between gap-1.5">
-                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/25 shrink-0">
-                        <iconify-icon icon="solar:wifi-bold" class="text-xl sm:text-2xl"></iconify-icon>
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-sm shadow-blue-500/25 shrink-0">
+                        <svg class="w-4.5 h-4.5 sm:w-5 sm:h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+                            <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+                            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                            <line x1="12" y1="20" x2="12.01" y2="20" stroke-width="3"/>
+                        </svg>
                     </div>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] sm:text-xs font-semibold shrink-0">
+                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10.5px] sm:text-[11px] font-semibold shrink-0">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                         <span>Aktif</span>
                     </span>
@@ -131,7 +136,7 @@
 
                 <!-- Label & Speed Value -->
                 <div>
-                    <div class="text-[10px] sm:text-[11px] font-heading font-bold uppercase tracking-wider text-slate-500">
+                    <div class="text-[9.5px] sm:text-[10.5px] font-heading font-bold uppercase tracking-wider text-slate-500">
                         PAKET LAYANAN
                     </div>
                     @php
@@ -141,10 +146,10 @@
                         $speedUnit = !empty($speedMatches[2]) ? $speedMatches[2] : 'Mbps';
                     @endphp
                     <div class="flex items-baseline gap-1 mt-0.5">
-                        <span class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">{{ $speedNum }}</span>
+                        <span class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-none">{{ $speedNum }}</span>
                         <span class="text-xs sm:text-sm font-semibold text-slate-600">{{ $speedUnit }}</span>
                     </div>
-                    <div class="text-[11px] sm:text-xs text-slate-500 font-medium truncate mt-1" title="{{ $customer->package->name ?? 'Broadband Internet' }}">
+                    <div class="text-[10.5px] sm:text-xs text-slate-500 font-medium truncate mt-0.5" title="{{ $customer->package->name ?? 'Broadband Internet' }}">
                         {{ $customer->package->name ?? 'Broadband Internet' }}
                     </div>
                 </div>
@@ -153,27 +158,27 @@
             <!-- Footer: Flush tinted bar with arrow button -->
             <a href="{{ route('portal.profile') }}" class="kpi-stat-footer bg-blue-50/60 hover:bg-blue-100/60 border-blue-100/80 group/link">
                 <span class="text-xs sm:text-sm font-heading font-bold text-blue-700">Rincian</span>
-                <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white border border-blue-200 flex items-center justify-center text-blue-600 shadow-2xs group-hover/link:scale-110 group-hover/link:border-blue-300 transition-all">
-                    <iconify-icon icon="solar:arrow-right-linear" class="text-xs sm:text-sm"></iconify-icon>
+                <div class="w-6 h-6 rounded-full bg-white border border-blue-200 flex items-center justify-center text-blue-600 shadow-2xs group-hover/link:scale-110 group-hover/link:border-blue-300 transition-all">
+                    <iconify-icon icon="solar:arrow-right-linear" class="text-xs"></iconify-icon>
                 </div>
             </a>
         </div>
 
         <!-- Card 2: Status Tagihan (Green) -->
         <div id="tour-step-billing" class="kpi-stat-card kpi-green group flex flex-col justify-between">
-            <div class="space-y-3">
+            <div class="space-y-1.5 sm:space-y-2">
                 <!-- Top Row: Circle Icon & Status Badge -->
                 <div class="flex items-center justify-between gap-1.5">
-                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-md shadow-emerald-500/25 shrink-0">
-                        <iconify-icon icon="solar:card-2-bold" class="text-xl sm:text-2xl"></iconify-icon>
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-sm shadow-emerald-500/25 shrink-0">
+                        <iconify-icon icon="solar:card-2-bold" class="text-lg sm:text-xl"></iconify-icon>
                     </div>
                     @if($customer->billing_status === 'paid')
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] sm:text-xs font-semibold shrink-0">
+                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10.5px] sm:text-[11px] font-semibold shrink-0">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                             <span>Lunas</span>
                         </span>
                     @else
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 text-[11px] sm:text-xs font-semibold shrink-0">
+                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-rose-50 text-rose-700 text-[10.5px] sm:text-[11px] font-semibold shrink-0">
                             <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
                             <span>Menunggu</span>
                         </span>
@@ -182,16 +187,16 @@
 
                 <!-- Label & Amount -->
                 <div>
-                    <div class="text-[10px] sm:text-[11px] font-heading font-bold uppercase tracking-wider text-slate-500">
+                    <div class="text-[9.5px] sm:text-[10.5px] font-heading font-bold uppercase tracking-wider text-slate-500">
                         STATUS TAGIHAN
                     </div>
                     <div class="flex items-baseline gap-1 mt-0.5">
                         <span class="text-xs sm:text-sm font-bold text-slate-600">Rp</span>
-                        <span class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-none truncate">
+                        <span class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-none truncate">
                             {{ number_format($customer->billing_amount, 0, ',', '.') }}
                         </span>
                     </div>
-                    <div class="text-[11px] sm:text-xs text-slate-500 font-medium truncate mt-1">
+                    <div class="text-[10.5px] sm:text-xs text-slate-500 font-medium truncate mt-0.5">
                         Tempo: Tgl {{ $customer->due_date ?? '1' }}/bln
                     </div>
                 </div>
@@ -202,38 +207,38 @@
                 <span class="text-xs sm:text-sm font-heading font-bold text-emerald-700">
                     {{ $customer->billing_status === 'paid' ? 'Rincian' : 'Bayar' }}
                 </span>
-                <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white border border-emerald-200 flex items-center justify-center text-emerald-600 shadow-2xs group-hover/link:scale-110 group-hover/link:border-emerald-300 transition-all">
-                    <iconify-icon icon="solar:arrow-right-linear" class="text-xs sm:text-sm"></iconify-icon>
+                <div class="w-6 h-6 rounded-full bg-white border border-emerald-200 flex items-center justify-center text-emerald-600 shadow-2xs group-hover/link:scale-110 group-hover/link:border-emerald-300 transition-all">
+                    <iconify-icon icon="solar:arrow-right-linear" class="text-xs"></iconify-icon>
                 </div>
             </a>
         </div>
 
         <!-- Card 3: Tiket Bantuan (Orange/Amber) -->
         <div id="tour-step-tickets" class="kpi-stat-card kpi-orange group flex flex-col justify-between">
-            <div class="space-y-3">
+            <div class="space-y-1.5 sm:space-y-2">
                 <!-- Top Row: Circle Icon & Resolved Badge -->
                 <div class="flex items-center justify-between gap-1.5">
-                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-amber-600 text-white flex items-center justify-center shadow-md shadow-amber-500/25 shrink-0">
-                        <iconify-icon icon="solar:headphones-round-sound-bold" class="text-xl sm:text-2xl"></iconify-icon>
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-amber-600 text-white flex items-center justify-center shadow-sm shadow-amber-500/25 shrink-0">
+                        <iconify-icon icon="solar:headphones-round-sound-bold" class="text-lg sm:text-xl"></iconify-icon>
                     </div>
-                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 text-slate-800 text-[11px] sm:text-xs font-semibold shrink-0">
-                        <iconify-icon icon="solar:check-square-bold" class="text-slate-700 text-xs"></iconify-icon>
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-slate-100 text-slate-800 text-[10.5px] sm:text-[11px] font-semibold shrink-0">
+                        <iconify-icon icon="solar:check-circle-bold" class="text-emerald-600 text-xs"></iconify-icon>
                         <span>Selesai: {{ $resolvedTicketsCount }}</span>
                     </span>
                 </div>
 
                 <!-- Label & Active Tickets -->
                 <div>
-                    <div class="text-[10px] sm:text-[11px] font-heading font-bold uppercase tracking-wider text-slate-500">
+                    <div class="text-[9.5px] sm:text-[10.5px] font-heading font-bold uppercase tracking-wider text-slate-500">
                         TIKET BANTUAN
                     </div>
                     <div class="flex items-baseline gap-1 mt-0.5">
-                        <span class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-none">
+                        <span class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-none">
                             {{ $activeTicketsCount }}
                         </span>
                         <span class="text-xs sm:text-sm font-semibold text-slate-600">Laporan</span>
                     </div>
-                    <div class="text-[11px] sm:text-xs font-medium truncate mt-1 {{ $activeTicketsCount > 0 ? 'text-amber-600 font-semibold' : 'text-slate-500' }}">
+                    <div class="text-[10.5px] sm:text-xs font-medium truncate mt-0.5 {{ $activeTicketsCount > 0 ? 'text-amber-600 font-semibold' : 'text-slate-500' }}">
                         {{ $activeTicketsCount > 0 ? 'Sedang Ditangani NOC' : 'Jaringan Normal & Stabil' }}
                     </div>
                 </div>
@@ -242,21 +247,21 @@
             <!-- Footer: Flush tinted bar with arrow button -->
             <a href="{{ route('portal.tickets.index') }}" class="kpi-stat-footer bg-amber-50/60 hover:bg-amber-100/60 border-amber-100/80 group/link">
                 <span class="text-xs sm:text-sm font-heading font-bold text-amber-700">Lihat</span>
-                <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white border border-amber-200 flex items-center justify-center text-amber-600 shadow-2xs group-hover/link:scale-110 group-hover/link:border-amber-300 transition-all">
-                    <iconify-icon icon="solar:arrow-right-linear" class="text-xs sm:text-sm"></iconify-icon>
+                <div class="w-6 h-6 rounded-full bg-white border border-amber-200 flex items-center justify-center text-amber-600 shadow-2xs group-hover/link:scale-110 group-hover/link:border-amber-300 transition-all">
+                    <iconify-icon icon="solar:arrow-right-linear" class="text-xs"></iconify-icon>
                 </div>
             </a>
         </div>
 
         <!-- Card 4: Lokasi Layanan (Purple) -->
         <div class="kpi-stat-card kpi-violet group flex flex-col justify-between">
-            <div class="space-y-3">
+            <div class="space-y-1.5 sm:space-y-2">
                 <!-- Top Row: Circle Icon & Registered Badge -->
                 <div class="flex items-center justify-between gap-1.5">
-                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#7c3aed] text-white flex items-center justify-center shadow-md shadow-purple-500/25 shrink-0">
-                        <iconify-icon icon="solar:map-point-bold" class="text-xl sm:text-2xl"></iconify-icon>
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#7c3aed] text-white flex items-center justify-center shadow-sm shadow-purple-500/25 shrink-0">
+                        <iconify-icon icon="solar:map-point-bold" class="text-lg sm:text-xl"></iconify-icon>
                     </div>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-50 text-purple-700 text-[11px] sm:text-xs font-semibold shrink-0">
+                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-purple-50 text-purple-700 text-[10.5px] sm:text-[11px] font-semibold shrink-0">
                         <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
                         <span>Terdaftar</span>
                     </span>
@@ -264,13 +269,13 @@
 
                 <!-- Label & Address -->
                 <div>
-                    <div class="text-[10px] sm:text-[11px] font-heading font-bold uppercase tracking-wider text-slate-500">
+                    <div class="text-[9.5px] sm:text-[10.5px] font-heading font-bold uppercase tracking-wider text-slate-500">
                         LOKASI LAYANAN
                     </div>
-                    <div class="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight leading-snug line-clamp-2 mt-0.5" title="{{ $customer->address ?: 'Alamat belum tercatat di sistem' }}">
+                    <div class="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight leading-snug line-clamp-1 mt-0.5" title="{{ $customer->address ?: 'Alamat belum tercatat di sistem' }}">
                         {{ $customer->address ?: 'Alamat Terdaftar' }}
                     </div>
-                    <div class="text-[11px] sm:text-xs text-slate-500 font-medium truncate mt-1">
+                    <div class="text-[10.5px] sm:text-xs text-slate-500 font-medium truncate mt-0.5">
                         {{ $customer->city ?? 'Area Layanan FTTH' }}
                     </div>
                 </div>
@@ -279,8 +284,8 @@
             <!-- Footer: Flush tinted bar with arrow button -->
             <a href="{{ route('portal.profile') }}" class="kpi-stat-footer bg-purple-50/60 hover:bg-purple-100/60 border-purple-100/80 group/link">
                 <span class="text-xs sm:text-sm font-heading font-bold text-purple-700">Detail</span>
-                <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white border border-purple-200 flex items-center justify-center text-purple-700 shadow-2xs group-hover/link:scale-110 group-hover/link:border-purple-300 transition-all">
-                    <iconify-icon icon="solar:arrow-right-linear" class="text-xs sm:text-sm"></iconify-icon>
+                <div class="w-6 h-6 rounded-full bg-white border border-purple-200 flex items-center justify-center text-purple-700 shadow-2xs group-hover/link:scale-110 group-hover/link:border-purple-300 transition-all">
+                    <iconify-icon icon="solar:arrow-right-linear" class="text-xs"></iconify-icon>
                 </div>
             </a>
         </div>
