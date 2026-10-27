@@ -129,9 +129,9 @@
 
         /* Hero Network Pass (Dark Oceanic Gradient) */
         .hero-network-card {
-            background: linear-gradient(135deg, #091322 0%, #0f172a 50%, #0e7490 100%) !important;
-            border: 1px solid rgba(56, 189, 248, 0.35) !important;
-            box-shadow: 0 12px 32px -6px rgba(2, 132, 199, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+            background: linear-gradient(135deg, #071529 0%, #0c213d 50%, #082d4d 100%) !important;
+            border: 1px solid rgba(56, 189, 248, 0.28) !important;
+            box-shadow: 0 16px 36px -8px rgba(7, 21, 41, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
             border-radius: 20px;
             position: relative;
             overflow: hidden;
