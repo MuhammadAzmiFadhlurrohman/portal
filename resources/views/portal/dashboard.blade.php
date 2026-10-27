@@ -12,17 +12,17 @@
         <div class="absolute -bottom-16 -left-16 w-56 h-56 bg-sky-500/15 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute inset-0 bg-[radial-gradient(rgba(56,189,248,0.08)_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none"></div>
         
-        <div class="relative z-10 space-y-3.5 sm:space-y-4">
+        <div class="relative z-10 space-y-3 sm:space-y-4">
             
-            <!-- Top Row: ID, Status Badges & Membership Tenure -->
-            <div class="flex items-center justify-between gap-2 flex-wrap">
-                <!-- Left: Group of Status Badges -->
-                <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+            <!-- Top Row: ID, Status Badges & Membership Tenure (Fits on one neat line on mobile) -->
+            <div class="flex items-center justify-between gap-2">
+                <!-- Left: Single-Row Status Badges -->
+                <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 max-w-full">
                     <!-- Customer ID with Click-to-Copy -->
                     <button 
                         type="button"
                         onclick="copyToClipboard('{{ $customer->customer_id }}', 'ID Pelanggan {{ $customer->customer_id }}')" 
-                        class="group inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white/[0.08] hover:bg-white/[0.15] border border-white/15 text-sky-200 font-mono text-[11px] sm:text-xs font-bold transition-all shadow-2xs active:scale-95 cursor-pointer backdrop-blur-md"
+                        class="group inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg sm:rounded-xl bg-white/[0.08] hover:bg-white/[0.15] border border-white/15 text-sky-200 font-mono text-[10.5px] sm:text-xs font-bold transition-all shadow-2xs active:scale-95 cursor-pointer backdrop-blur-md shrink-0"
                         title="Klik untuk menyalin ID Pelanggan"
                     >
                         <iconify-icon icon="solar:hashtag-bold" class="text-sky-400 text-xs shrink-0"></iconify-icon>
@@ -31,21 +31,21 @@
                     </button>
 
                     <!-- Registration / Connection Status Pill -->
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl border text-[11px] sm:text-xs font-semibold {{ $customer->status_reg_badge_class }} backdrop-blur-md shadow-2xs">
-                        <span class="w-2 h-2 rounded-full {{ $customer->status_reg_dot_class }} shrink-0"></span>
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg sm:rounded-xl border text-[10.5px] sm:text-xs font-semibold {{ $customer->status_reg_badge_class }} backdrop-blur-md shadow-2xs shrink-0">
+                        <span class="w-1.5 h-1.5 rounded-full {{ $customer->status_reg_dot_class }} shrink-0"></span>
                         <span>{{ $customer->status_reg_label }}</span>
                     </span>
 
                     <!-- Email Verification Status Badge / Trigger -->
                     @if(!empty($customer->email))
-                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl border text-[10.5px] sm:text-xs font-semibold bg-emerald-500/15 border-emerald-400/35 text-emerald-300 backdrop-blur-md shadow-2xs" title="{{ $customer->email }}">
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg sm:rounded-xl border text-[10.5px] sm:text-xs font-semibold bg-emerald-500/15 border-emerald-400/35 text-emerald-300 backdrop-blur-md shadow-2xs shrink-0" title="{{ $customer->email }}">
                             <iconify-icon icon="solar:verified-check-bold" class="text-emerald-400 text-xs shrink-0"></iconify-icon>
-                            <span>Email Terverifikasi</span>
+                            <span>Terverifikasi</span>
                         </span>
                     @else
                         <a 
                             href="{{ route('portal.profile') }}"
-                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl border text-[10.5px] sm:text-xs font-semibold bg-amber-500/15 border-amber-400/35 text-amber-300 hover:bg-amber-500/25 transition-all backdrop-blur-md shadow-2xs cursor-pointer"
+                            class="inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg sm:rounded-xl border text-[10.5px] sm:text-xs font-semibold bg-amber-500/15 border-amber-400/35 text-amber-300 hover:bg-amber-500/25 transition-all backdrop-blur-md shadow-2xs cursor-pointer shrink-0"
                             title="Klik untuk melengkapi email di profil"
                         >
                             <iconify-icon icon="solar:letter-bold" class="text-amber-400 text-xs shrink-0"></iconify-icon>
@@ -57,7 +57,7 @@
 
                 <!-- Right: Desktop Membership Tenure Pill -->
                 @if($customer->berlangganan_sejak !== '-')
-                    <div class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white/[0.06] border border-white/10 text-cyan-200 text-xs font-medium backdrop-blur-md shadow-2xs" title="Total durasi aktif: {{ $customer->subscription_duration_text }}">
+                    <div class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white/[0.06] border border-white/10 text-cyan-200 text-xs font-medium backdrop-blur-md shadow-2xs shrink-0" title="Total durasi aktif: {{ $customer->subscription_duration_text }}">
                         <iconify-icon icon="solar:calendar-date-bold" class="text-cyan-400 text-xs shrink-0"></iconify-icon>
                         <span>Langganan Sejak {{ $customer->berlangganan_sejak }}</span>
                         <span class="text-cyan-400/40">•</span>
@@ -67,7 +67,7 @@
             </div>
 
             <!-- Middle & Action Row -->
-            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pt-1">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3.5 sm:gap-4 pt-0.5 sm:pt-1">
                 
                 <!-- Left: Greeting & Description -->
                 <div class="space-y-1 sm:space-y-1.5">
@@ -77,32 +77,32 @@
 
                     <!-- Mobile-Only Membership Tenure Subtitle -->
                     @if($customer->berlangganan_sejak !== '-')
-                        <div class="sm:hidden flex items-center gap-1.5 text-[11px] text-cyan-300/90 font-medium pt-0.5">
+                        <div class="sm:hidden flex items-center gap-1.5 text-xs text-cyan-300/90 font-medium pt-0.5">
                             <iconify-icon icon="solar:calendar-date-bold" class="text-cyan-400 text-xs shrink-0"></iconify-icon>
                             <span>Sejak {{ $customer->berlangganan_sejak }}</span>
-                            <span class="text-slate-500">•</span>
+                            <span class="text-white/30">•</span>
                             <span class="text-emerald-300 font-mono font-semibold">{{ $customer->subscription_duration_text }}</span>
                         </div>
                     @endif
                     
-                    <p class="text-xs sm:text-sm text-slate-300/90 max-w-xl leading-relaxed">
+                    <p class="text-xs sm:text-sm text-slate-300/85 max-w-xl leading-relaxed">
                         Pantau performa koneksi internet broadband dan rincian layanan Anda secara real-time.
                     </p>
                 </div>
 
                 <!-- Right: High-Impact Action CTAs (Side by Side on Mobile & Symmetrical) -->
-                <div class="flex items-center gap-2.5 sm:gap-3 shrink-0 pt-1 lg:pt-0">
+                <div class="grid grid-cols-2 gap-2 sm:flex sm:items-center sm:gap-2.5 shrink-0 pt-0.5 lg:pt-0">
                     <!-- Primary CTA: Lapor Gangguan -->
-                    <a href="{{ route('portal.tickets.create') }}" class="flex-1 sm:flex-initial h-10 sm:h-11 inline-flex items-center justify-center gap-2 px-4 sm:px-5 rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-heading font-bold text-xs sm:text-sm shadow-md shadow-sky-500/25 hover:shadow-lg hover:shadow-sky-500/35 active:scale-95 transition-all text-center whitespace-nowrap">
-                        <iconify-icon icon="solar:danger-triangle-bold" class="text-amber-300 text-base shrink-0"></iconify-icon>
+                    <a href="{{ route('portal.tickets.create') }}" class="h-10 sm:h-11 inline-flex items-center justify-center gap-1.5 px-3 sm:px-4 rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-heading font-bold text-xs sm:text-sm shadow-md shadow-sky-500/25 hover:shadow-sky-500/35 active:scale-95 transition-all text-center whitespace-nowrap">
+                        <iconify-icon icon="solar:danger-triangle-bold" class="text-amber-300 text-sm sm:text-base shrink-0"></iconify-icon>
                         <span>Lapor Gangguan</span>
                     </a>
 
                     <!-- Secondary CTA: Upgrade Paket (Soon) -->
-                    <div class="flex-1 sm:flex-initial h-10 sm:h-11 inline-flex items-center justify-center gap-2 px-3.5 sm:px-4 rounded-xl bg-white/[0.08] hover:bg-white/[0.12] text-slate-200 border border-white/15 font-heading font-semibold text-xs sm:text-sm shadow-sm cursor-not-allowed select-none text-center whitespace-nowrap transition-all" title="Fitur Upgrade Paket segera hadir">
-                        <iconify-icon icon="solar:round-transfer-vertical-bold" class="text-slate-400 text-base shrink-0"></iconify-icon>
+                    <div class="h-10 sm:h-11 inline-flex items-center justify-center gap-1.5 px-3 sm:px-4 rounded-xl bg-white/[0.08] hover:bg-white/[0.12] text-slate-200 border border-white/15 font-heading font-semibold text-xs sm:text-sm shadow-xs cursor-not-allowed select-none text-center whitespace-nowrap transition-all" title="Fitur Upgrade Paket segera hadir">
+                        <iconify-icon icon="solar:round-transfer-vertical-bold" class="text-slate-400 text-sm sm:text-base shrink-0"></iconify-icon>
                         <span>Upgrade Paket</span>
-                        <span class="px-1.5 py-0.5 rounded-md bg-amber-400/20 border border-amber-300/30 text-amber-300 text-[9px] font-mono font-bold tracking-wider uppercase">Soon</span>
+                        <span class="px-1.5 py-0.5 rounded-md bg-amber-400/20 border border-amber-300/30 text-amber-300 text-[8.5px] font-mono font-bold tracking-wider uppercase">SOON</span>
                     </div>
                 </div>
 
@@ -136,15 +136,14 @@
                     </div>
                 </div>
             </div>
-            <!-- Footer -->
+            <!-- Footer (Clean & No Truncation) -->
             <div class="pt-2 sm:pt-2.5 mt-2 sm:mt-2.5 border-t border-slate-100 flex items-center justify-between gap-1 text-[10px] sm:text-xs">
-                <span class="flex items-center gap-1 text-slate-500 truncate min-w-0" title="Berlangganan: {{ $customer->subscription_duration_text }}">
-                    <iconify-icon icon="solar:calendar-date-bold" class="text-sky-500 text-xs shrink-0"></iconify-icon>
-                    <span class="truncate font-medium">{{ $customer->subscription_duration_text }}</span>
-                </span>
                 <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200/60 font-mono font-bold text-[9px] sm:text-[10px] shrink-0">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
                     <span>Aktif</span>
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono truncate">
+                    Fiber Optic
                 </span>
             </div>
         </div>

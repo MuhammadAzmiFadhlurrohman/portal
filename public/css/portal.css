@@ -167,10 +167,11 @@
     content: '';
     position: absolute;
     top: 0;
-    left: 14px;
-    right: 14px;
-    height: 2.5px;
-    border-radius: 99px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
 }
 .kpi-stat-card.kpi-sky::before     { background: linear-gradient(90deg, #0284c7, #38bdf8); }
 .kpi-stat-card.kpi-emerald::before { background: linear-gradient(90deg, #10b981, #34d399); }
