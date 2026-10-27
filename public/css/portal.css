@@ -130,19 +130,18 @@
     pointer-events: none;
 }
 
-/* Stat KPI Cards (Mockup Design - Compact & Proportional) */
+/* Stat KPI Cards (Mockup Design - Compact, Neat & Proportional) */
 .kpi-stat-card {
     background: #ffffff !important;
     border-radius: 20px !important;
-    padding: 0.85rem 0.85rem 0 0.85rem !important;
-    box-shadow: 0 3px 14px -3px rgba(15, 23, 42, 0.05) !important;
+    padding: 0.95rem 0.95rem 0 0.95rem !important;
+    box-shadow: 0 2px 12px -2px rgba(15, 23, 42, 0.04) !important;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 148px;
     contain: layout style;
     transform: translateZ(0);
 }
@@ -150,8 +149,7 @@
 @media (min-width: 640px) {
     .kpi-stat-card {
         border-radius: 22px !important;
-        padding: 1rem 1rem 0 1rem !important;
-        min-height: 160px;
+        padding: 1.1rem 1.1rem 0 1.1rem !important;
     }
 }
 
@@ -161,28 +159,28 @@
 }
 
 .kpi-stat-card.kpi-blue {
-    border: 1.5px solid #bfdbfe !important;
+    border: 1.5px solid #dbeafe !important;
 }
 .kpi-stat-card.kpi-blue:hover {
     border-color: #60a5fa !important;
 }
 
 .kpi-stat-card.kpi-green {
-    border: 1.5px solid #bbf7d0 !important;
+    border: 1.5px solid #d1fae5 !important;
 }
 .kpi-stat-card.kpi-green:hover {
     border-color: #34d399 !important;
 }
 
 .kpi-stat-card.kpi-orange {
-    border: 1.5px solid #fed7aa !important;
+    border: 1.5px solid #fef3c7 !important;
 }
 .kpi-stat-card.kpi-orange:hover {
     border-color: #fb923c !important;
 }
 
 .kpi-stat-card.kpi-violet {
-    border: 1.5px solid #e9d5ff !important;
+    border: 1.5px solid #f3e8ff !important;
 }
 .kpi-stat-card.kpi-violet:hover {
     border-color: #c084fc !important;
@@ -193,10 +191,10 @@
 }
 
 .kpi-stat-footer {
-    margin-left: -0.85rem;
-    margin-right: -0.85rem;
-    margin-top: 0.5rem;
-    padding: 0.45rem 0.75rem;
+    margin-left: -0.95rem;
+    margin-right: -0.95rem;
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.85rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -207,10 +205,10 @@
 
 @media (min-width: 640px) {
     .kpi-stat-footer {
-        margin-left: -1rem;
-        margin-right: -1rem;
-        margin-top: 0.65rem;
-        padding: 0.5rem 0.875rem;
+        margin-left: -1.1rem;
+        margin-right: -1.1rem;
+        margin-top: 0.85rem;
+        padding: 0.6rem 1rem;
     }
 }
 
