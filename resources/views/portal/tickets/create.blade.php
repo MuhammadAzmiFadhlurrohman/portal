@@ -1294,21 +1294,6 @@
                 </div>
             </div>
 
-            <!-- Service Level Agreement (SLA) Guarantee -->
-            <div class="portal-card rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 bg-sky-50/80 border-sky-200 space-y-2 text-xs">
-                <div class="font-heading font-bold text-sky-800 flex items-center gap-1.5">
-                    <iconify-icon icon="solar:clock-circle-bold" class="text-sm sm:text-base"></iconify-icon>
-                    <span>Komitmen Respon Cepat (SLA)</span>
-                </div>
-                <p class="text-[10px] sm:text-[11px] text-slate-600 leading-relaxed">
-                    Setelah laporan dikirim:
-                </p>
-                <ul class="space-y-1 text-[10px] sm:text-[11px] text-slate-600 list-disc list-inside">
-                    <li><strong class="text-slate-800">&lt; 15 Menit:</strong> Respon awal & remote check NOC.</li>
-                    <li><strong class="text-white bg-sky-600 px-1 py-0.5 rounded text-[9px] sm:text-[10px]">&lt; 2 Jam:</strong> Penugasan teknisi ke lokasi.</li>
-                </ul>
-            </div>
-
         </div>
 
     </div>
