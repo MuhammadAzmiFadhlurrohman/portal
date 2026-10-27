@@ -116,72 +116,72 @@
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5">
         
         <!-- Card 1: Paket Internet -->
-        <div id="tour-step-package" class="kpi-stat-card kpi-sky group flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 rounded-2xl bg-white border border-slate-200/90 hover:border-sky-300 hover:shadow-lg hover:shadow-sky-500/5 transition-all duration-200">
+        <div id="tour-step-package" class="kpi-stat-card group flex flex-col justify-between p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 hover:border-sky-300 hover:shadow-md transition-all duration-200">
             <div>
-                <!-- Header -->
-                <div class="flex items-center justify-between mb-2 sm:mb-2.5">
-                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Paket</span>
+                <!-- Header: Label & Icon -->
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[11px] sm:text-xs font-heading font-semibold text-slate-500">Paket Layanan</span>
                     <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center border border-sky-100 shadow-2xs group-hover:scale-105 transition-transform shrink-0">
                         <iconify-icon icon="solar:bolt-circle-bold" class="text-base sm:text-lg"></iconify-icon>
                     </div>
                 </div>
-                <!-- Content -->
+                <!-- Content: Speed & Package Name -->
                 <div class="space-y-0.5">
-                    <div class="text-xs sm:text-sm lg:text-base font-heading font-extrabold text-slate-900 truncate" title="{{ $customer->package->name ?? 'Broadband Internet' }}">
-                        {{ $customer->package->name ?? 'Broadband Internet' }}
-                    </div>
-                    <div class="inline-flex items-center gap-1 font-mono font-bold text-xs sm:text-sm text-sky-600">
-                        <iconify-icon icon="solar:round-transfer-diagonal-bold" class="text-xs shrink-0"></iconify-icon>
+                    <div class="text-base sm:text-lg font-heading font-black text-slate-900 tracking-tight leading-tight flex items-baseline gap-1">
                         <span>{{ $customer->package->speed ?? '25 Mbps' }}</span>
+                    </div>
+                    <div class="text-[11px] sm:text-xs text-slate-500 font-medium truncate" title="{{ $customer->package->name ?? 'Broadband Internet' }}">
+                        {{ $customer->package->name ?? 'Broadband Internet' }}
                     </div>
                 </div>
             </div>
-            <!-- Footer (Clean & No Truncation) -->
+            <!-- Footer: Status Pill & Action Link -->
             <div class="pt-2 sm:pt-2.5 mt-2 sm:mt-2.5 border-t border-slate-100 flex items-center justify-between gap-1 text-[10px] sm:text-xs">
-                <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200/60 font-mono font-bold text-[9px] sm:text-[10px] shrink-0">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] sm:text-[11px] font-semibold border border-emerald-200/60 shrink-0">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
                     <span>Aktif</span>
                 </span>
-                <span class="text-[10px] text-slate-400 font-mono truncate">
-                    Fiber Optic
-                </span>
+                <a href="{{ route('portal.profile') }}" class="inline-flex items-center gap-0.5 text-sky-600 hover:text-sky-700 font-heading font-bold text-[10.5px] sm:text-xs group/link shrink-0">
+                    <span>Rincian</span>
+                    <iconify-icon icon="solar:alt-arrow-right-linear" class="text-[10px] sm:text-xs transition-transform group-hover/link:translate-x-0.5"></iconify-icon>
+                </a>
             </div>
         </div>
 
         <!-- Card 2: Status Tagihan -->
-        <div id="tour-step-billing" class="kpi-stat-card kpi-emerald group flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 rounded-2xl bg-white border border-slate-200/90 hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-200">
+        <div id="tour-step-billing" class="kpi-stat-card group flex flex-col justify-between p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-300 hover:shadow-md transition-all duration-200">
             <div>
-                <!-- Header -->
-                <div class="flex items-center justify-between mb-2 sm:mb-2.5">
-                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Tagihan</span>
+                <!-- Header: Label & Icon -->
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[11px] sm:text-xs font-heading font-semibold text-slate-500">Status Tagihan</span>
                     <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100 shadow-2xs group-hover:scale-105 transition-transform shrink-0">
                         <iconify-icon icon="solar:wallet-money-bold" class="text-base sm:text-lg"></iconify-icon>
                     </div>
                 </div>
-                <!-- Content -->
+                <!-- Content: Amount & Due Date -->
                 <div class="space-y-0.5">
-                    <div class="text-xs sm:text-sm lg:text-base font-heading font-extrabold text-slate-900 truncate">
+                    <div class="text-base sm:text-lg font-heading font-black text-slate-900 tracking-tight leading-tight truncate">
                         Rp {{ number_format($customer->billing_amount, 0, ',', '.') }}
                     </div>
-                    <div class="text-[10px] sm:text-xs text-slate-500 truncate">
-                        Tempo Tgl {{ $customer->due_date }}/bln
+                    <div class="text-[11px] sm:text-xs text-slate-500 font-medium truncate">
+                        Tempo: Tgl {{ $customer->due_date }}/bln
                     </div>
                 </div>
             </div>
-            <!-- Footer -->
+            <!-- Footer: Paid/Unpaid Status & Action Link -->
             <div class="pt-2 sm:pt-2.5 mt-2 sm:mt-2.5 border-t border-slate-100 flex items-center justify-between gap-1 text-[10px] sm:text-xs">
                 @if($customer->billing_status === 'paid')
-                    <span class="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200/70 font-semibold text-[9.5px] sm:text-[10.5px] shrink-0">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] sm:text-[11px] font-semibold border border-emerald-200/60 shrink-0">
                         <iconify-icon icon="solar:check-circle-bold" class="text-emerald-500 text-xs shrink-0"></iconify-icon>
                         <span>Lunas</span>
                     </span>
                 @else
-                    <span class="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded-md bg-rose-50 text-rose-700 border border-rose-200/70 font-semibold text-[9.5px] sm:text-[10.5px] shrink-0">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 text-[10px] sm:text-[11px] font-semibold border border-rose-200/60 shrink-0">
                         <span class="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0"></span>
                         <span>Menunggu</span>
                     </span>
                 @endif
-                <a href="{{ route('portal.billing.index') }}" class="inline-flex items-center gap-0.5 text-sky-600 hover:text-sky-700 font-heading font-bold text-[10px] sm:text-xs group/link shrink-0">
+                <a href="{{ route('portal.billing.index') }}" class="inline-flex items-center gap-0.5 text-sky-600 hover:text-sky-700 font-heading font-bold text-[10.5px] sm:text-xs group/link shrink-0">
                     <span>{{ $customer->billing_status === 'paid' ? 'Rincian' : 'Bayar' }}</span>
                     <iconify-icon icon="solar:alt-arrow-right-linear" class="text-[10px] sm:text-xs transition-transform group-hover/link:translate-x-0.5"></iconify-icon>
                 </a>
@@ -189,31 +189,31 @@
         </div>
 
         <!-- Card 3: Tiket Kendala Aktif -->
-        <div id="tour-step-tickets" class="kpi-stat-card kpi-amber group flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 rounded-2xl bg-white border border-slate-200/90 hover:border-amber-300 hover:shadow-lg hover:shadow-amber-500/5 transition-all duration-200">
+        <div id="tour-step-tickets" class="kpi-stat-card group flex flex-col justify-between p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 hover:border-amber-300 hover:shadow-md transition-all duration-200">
             <div>
-                <!-- Header -->
-                <div class="flex items-center justify-between mb-2 sm:mb-2.5">
-                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Tiket</span>
+                <!-- Header: Label & Icon -->
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[11px] sm:text-xs font-heading font-semibold text-slate-500">Tiket Bantuan</span>
                     <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-100 shadow-2xs group-hover:scale-105 transition-transform shrink-0">
                         <iconify-icon icon="solar:shield-warning-bold" class="text-base sm:text-lg"></iconify-icon>
                     </div>
                 </div>
-                <!-- Content -->
+                <!-- Content: Active Tickets & Status -->
                 <div class="space-y-0.5">
-                    <div class="text-xs sm:text-sm lg:text-base font-heading font-extrabold text-slate-900 truncate">
+                    <div class="text-base sm:text-lg font-heading font-black text-slate-900 tracking-tight leading-tight truncate">
                         {{ $activeTicketsCount }} Laporan
                     </div>
-                    <div class="text-[10px] sm:text-xs truncate font-medium {{ $activeTicketsCount > 0 ? 'text-amber-600 font-semibold' : 'text-slate-500' }}">
+                    <div class="text-[11px] sm:text-xs font-medium truncate {{ $activeTicketsCount > 0 ? 'text-amber-600 font-semibold' : 'text-slate-500' }}">
                         {{ $activeTicketsCount > 0 ? 'Sedang Ditangani NOC' : 'Jaringan Normal & Stabil' }}
                     </div>
                 </div>
             </div>
-            <!-- Footer -->
+            <!-- Footer: Resolved Count & Action Link -->
             <div class="pt-2 sm:pt-2.5 mt-2 sm:mt-2.5 border-t border-slate-100 flex items-center justify-between gap-1 text-[10px] sm:text-xs">
-                <span class="text-slate-500 text-[10px] sm:text-[11px] truncate min-w-0">
+                <span class="text-slate-500 text-[10.5px] sm:text-[11px] font-medium truncate min-w-0">
                     Selesai: <strong class="text-emerald-600 font-mono font-bold">{{ $resolvedTicketsCount }}</strong>
                 </span>
-                <a href="{{ route('portal.tickets.index') }}" class="inline-flex items-center gap-0.5 text-sky-600 hover:text-sky-700 font-heading font-bold text-[10px] sm:text-xs group/link shrink-0">
+                <a href="{{ route('portal.tickets.index') }}" class="inline-flex items-center gap-0.5 text-sky-600 hover:text-sky-700 font-heading font-bold text-[10.5px] sm:text-xs group/link shrink-0">
                     <span>Lihat</span>
                     <iconify-icon icon="solar:alt-arrow-right-linear" class="text-[10px] sm:text-xs transition-transform group-hover/link:translate-x-0.5"></iconify-icon>
                 </a>
@@ -221,32 +221,32 @@
         </div>
 
         <!-- Card 4: Alamat Pemasangan -->
-        <div class="kpi-stat-card kpi-purple group flex flex-col justify-between p-3 sm:p-4 lg:p-4.5 rounded-2xl bg-white border border-slate-200/90 hover:border-purple-300 hover:shadow-lg hover:shadow-purple-500/5 transition-all duration-200">
+        <div class="kpi-stat-card group flex flex-col justify-between p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 hover:border-purple-300 hover:shadow-md transition-all duration-200">
             <div>
-                <!-- Header -->
-                <div class="flex items-center justify-between mb-2 sm:mb-2.5">
-                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Lokasi</span>
+                <!-- Header: Label & Icon -->
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[11px] sm:text-xs font-heading font-semibold text-slate-500">Lokasi Layanan</span>
                     <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center border border-purple-100 shadow-2xs group-hover:scale-105 transition-transform shrink-0">
                         <iconify-icon icon="solar:map-point-wave-bold" class="text-base sm:text-lg"></iconify-icon>
                     </div>
                 </div>
-                <!-- Content -->
+                <!-- Content: Address & City -->
                 <div class="space-y-0.5">
-                    <div class="text-xs sm:text-sm lg:text-base font-heading font-extrabold text-slate-900 truncate" title="{{ $customer->address ?: 'Alamat belum tercatat di sistem' }}">
-                        {{ $customer->address ?: 'Alamat belum tercatat' }}
+                    <div class="text-sm sm:text-base font-heading font-black text-slate-900 tracking-tight leading-tight truncate" title="{{ $customer->address ?: 'Alamat belum tercatat di sistem' }}">
+                        {{ $customer->address ?: 'Alamat Terdaftar' }}
                     </div>
-                    <div class="text-[10px] sm:text-xs text-slate-500 truncate">
+                    <div class="text-[11px] sm:text-xs text-slate-500 font-medium truncate">
                         {{ $customer->city ?? 'Area Layanan FTTH' }}
                     </div>
                 </div>
             </div>
-            <!-- Footer -->
+            <!-- Footer: Registered Status & Action Link -->
             <div class="pt-2 sm:pt-2.5 mt-2 sm:mt-2.5 border-t border-slate-100 flex items-center justify-between gap-1 text-[10px] sm:text-xs">
-                <span class="inline-flex items-center gap-1 text-slate-500 text-[10px] sm:text-[11px] truncate min-w-0">
+                <span class="inline-flex items-center gap-1 text-slate-500 text-[10.5px] sm:text-[11px] font-medium truncate min-w-0">
                     <iconify-icon icon="solar:buildings-2-bold" class="text-purple-500 text-xs shrink-0"></iconify-icon>
-                    <span class="truncate">Terdaftar</span>
+                    <span>Terdaftar</span>
                 </span>
-                <a href="{{ route('portal.profile') }}" class="inline-flex items-center gap-0.5 text-sky-600 hover:text-sky-700 font-heading font-bold text-[10px] sm:text-xs group/link shrink-0">
+                <a href="{{ route('portal.profile') }}" class="inline-flex items-center gap-0.5 text-sky-600 hover:text-sky-700 font-heading font-bold text-[10.5px] sm:text-xs group/link shrink-0">
                     <span>Detail</span>
                     <iconify-icon icon="solar:alt-arrow-right-linear" class="text-[10px] sm:text-xs transition-transform group-hover/link:translate-x-0.5"></iconify-icon>
                 </a>
