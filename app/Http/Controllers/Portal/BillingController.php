@@ -81,11 +81,11 @@ class BillingController extends Controller
             $oldestUnpaidInvoice = $currentInvoice->is_paid ? null : $currentInvoice;
         }
 
-        // Cek sinkronisasi status otomatis dengan Midtrans jika tagihan belum lunas (dibatasi 60 detik agar tidak memperlambat loading halaman)
+        // Cek sinkronisasi status otomatis dengan Midtrans jika tagihan belum lunas (dibatasi 5 menit agar tidak memperlambat loading navigasi)
         if ($currentInvoice && !$currentInvoice->is_paid && !empty($currentInvoice->payment_post)) {
             $syncCacheKey = 'midtrans_sync_cooldown_' . md5($currentInvoice->kode_billing_layanan);
             if (!\Illuminate\Support\Facades\Cache::has($syncCacheKey)) {
-                \Illuminate\Support\Facades\Cache::put($syncCacheKey, true, 60);
+                \Illuminate\Support\Facades\Cache::put($syncCacheKey, true, 300);
                 try {
                     $this->midtransService->syncTransactionStatus($currentInvoice);
                     $currentInvoice->refresh();

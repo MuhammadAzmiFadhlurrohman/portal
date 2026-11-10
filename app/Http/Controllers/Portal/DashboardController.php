@@ -21,9 +21,9 @@ class DashboardController extends Controller
 
         $nomorInternet = $customer?->nomor_internet;
 
-        // Cache ringkasan data dashboard selama 30 detik untuk navigasi cepat
+        // Cache ringkasan data dashboard selama 5 menit untuk navigasi instan (otomatis direset saat ada tiket baru)
         $cacheKey = "portal_dash_summary_{$nomorInternet}";
-        $summary = \Illuminate\Support\Facades\Cache::remember($cacheKey, 30, function () use ($customer) {
+        $summary = \Illuminate\Support\Facades\Cache::remember($cacheKey, 300, function () use ($customer) {
             if (!$customer) {
                 return [
                     'recentTickets' => collect([]),

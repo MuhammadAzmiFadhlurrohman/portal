@@ -342,7 +342,7 @@ class MidtransService
                 ->withHeaders([
                     'Accept' => 'application/json',
                 ])
-                ->timeout(8)
+                ->timeout(3)
                 ->get($url);
 
             if ($response->successful()) {

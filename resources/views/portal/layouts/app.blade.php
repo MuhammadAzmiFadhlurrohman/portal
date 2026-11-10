@@ -537,6 +537,63 @@
             }
         })();
 
+        // =========================================================================
+        // Smart Speculative Prefetch Engine (Navigasi Antar Halaman Secepat Kilat)
+        // =========================================================================
+        (function() {
+            const prefetched = new Set();
+            const isConnectionFast = !navigator.connection || (!navigator.connection.saveData && !navigator.connection.effectiveType?.includes('2g'));
+
+            function prefetchUrl(url) {
+                if (!url || !isConnectionFast) return;
+                try {
+                    const target = new URL(url, window.location.origin);
+                    if (target.origin !== window.location.origin) return;
+                    if (!target.pathname.startsWith('/portal')) return;
+                    if (target.pathname.includes('/logout') || target.pathname.includes('/pay')) return;
+
+                    const cleanHref = target.origin + target.pathname;
+                    if (prefetched.has(cleanHref)) return;
+                    prefetched.add(cleanHref);
+
+                    const link = document.createElement('link');
+                    link.rel = 'prefetch';
+                    link.href = target.href;
+                    link.as = 'document';
+                    document.head.appendChild(link);
+                } catch(err) {}
+            }
+
+            // 1. Prefetch saat mouse mengarah ke menu (desktop hover ~60ms)
+            let hoverTimer = null;
+            document.addEventListener('mouseover', function(e) {
+                const a = e.target.closest('a[href]');
+                if (!a || !a.href || a.target === '_blank') return;
+                clearTimeout(hoverTimer);
+                hoverTimer = setTimeout(() => prefetchUrl(a.href), 60);
+            }, { passive: true });
+
+            // 2. Prefetch instan saat jari pertama kali menyentuh layar (mobile touchstart 150-300ms sebelum click)
+            document.addEventListener('touchstart', function(e) {
+                const a = e.target.closest('a[href]');
+                if (!a || !a.href || a.target === '_blank') return;
+                prefetchUrl(a.href);
+            }, { passive: true });
+
+            // 3. Preload menu navigasi utama secara otomatis saat browser idle (santai)
+            const prefetchNavLinks = () => {
+                document.querySelectorAll('nav a[href], .bottom-nav a[href]').forEach(a => {
+                    prefetchUrl(a.href);
+                });
+            };
+
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(prefetchNavLinks, { timeout: 1500 });
+            } else {
+                setTimeout(prefetchNavLinks, 600);
+            }
+        })();
+
         // Haptic feedback halus khusus saat menekan elemen tombol (button)
         document.addEventListener('pointerdown', function(e) {
             if (!e.isTrusted || e.pointerType !== 'touch' || typeof navigator.vibrate !== 'function') {
