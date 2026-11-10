@@ -221,20 +221,42 @@ class BillingController extends Controller
         }
 
         // Simpan data konfirmasi pembayaran di database lokal ptmsn
-        \App\Models\PaymentConfirmation::updateOrCreate(
-            [
-                'customer_id' => $customer->customer_id,
-                'kode_billing_layanan' => $invoice->kode_billing_layanan,
-            ],
-            [
-                'customer_name' => $customer->name,
-                'destination_bank' => $destBank ?: null,
-                'proof_file' => $fullUrl,
-                'notes' => $rawNotes ?: null,
-                'status' => 'pending',
-                'verified_at' => null,
-            ]
-        );
+        try {
+            // Pastikan kolom destination_bank ada di tabel payment_confirmations jika tabel sudah ada
+            if (\Illuminate\Support\Facades\Schema::hasTable('payment_confirmations')) {
+                if (!\Illuminate\Support\Facades\Schema::hasColumn('payment_confirmations', 'destination_bank')) {
+                    try {
+                        \Illuminate\Support\Facades\Schema::table('payment_confirmations', function ($table) {
+                            $table->string('destination_bank')->nullable()->after('customer_name');
+                        });
+                    } catch (\Throwable $colEx) {
+                        Log::warning('Gagal auto-add kolom destination_bank di payment_confirmations: ' . $colEx->getMessage());
+                    }
+                }
+
+                $confirmationPayload = [
+                    'customer_name' => $customer->name,
+                    'proof_file' => $fullUrl,
+                    'notes' => $rawNotes ?: null,
+                    'status' => 'pending',
+                    'verified_at' => null,
+                ];
+
+                if (\Illuminate\Support\Facades\Schema::hasColumn('payment_confirmations', 'destination_bank')) {
+                    $confirmationPayload['destination_bank'] = $destBank ?: null;
+                }
+
+                \App\Models\PaymentConfirmation::updateOrCreate(
+                    [
+                        'customer_id' => $customer->customer_id,
+                        'kode_billing_layanan' => $invoice->kode_billing_layanan,
+                    ],
+                    $confirmationPayload
+                );
+            }
+        } catch (\Throwable $e) {
+            Log::error('Gagal simpan data PaymentConfirmation: ' . $e->getMessage());
+        }
 
         $billingWa = config('company.billing_whatsapp', '6289696629955');
         $formattedTotal = $invoice->formatted_total ?? ('Rp ' . number_format((float) $invoice->total_layanan, 0, ',', '.'));

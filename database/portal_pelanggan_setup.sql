@@ -72,6 +72,7 @@ CREATE TABLE IF NOT EXISTS `payment_confirmations` (
   `customer_id` varchar(100) NOT NULL COMMENT 'Nomor Internet / ID Pelanggan di database ims_v2',
   `kode_billing_layanan` varchar(255) NOT NULL,
   `customer_name` varchar(255) DEFAULT NULL,
+  `destination_bank` varchar(255) DEFAULT NULL COMMENT 'Nama & Rekening Bank Tujuan Transfer PT MSN',
   `proof_file` varchar(255) NOT NULL COMMENT 'Lokasi file bukti di public/uploads/bukti_transfer',
   `notes` text DEFAULT NULL,
   `status` varchar(50) NOT NULL DEFAULT 'pending' COMMENT 'pending, approved, rejected',
@@ -85,13 +86,9 @@ CREATE TABLE IF NOT EXISTS `payment_confirmations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Jika tabel payment_confirmations sebelumnya sudah pernah dibuat di database server:
--- Jalankan query ALTER TABLE berikut untuk menghapus kolom yang sudah tidak digunakan:
--- ALTER TABLE `payment_confirmations` 
---   DROP COLUMN IF EXISTS `bank_destination`,
---   DROP COLUMN IF EXISTS `bank_sender`,
---   DROP COLUMN IF EXISTS `sender_name`,
---   DROP COLUMN IF EXISTS `transfer_amount`,
---   DROP COLUMN IF EXISTS `transfer_date`;
+-- Jalankan query ALTER TABLE berikut untuk memastikan kolom destination_bank tersedia:
+-- ALTER TABLE `payment_confirmations` ADD COLUMN IF NOT EXISTS `destination_bank` VARCHAR(255) NULL AFTER `customer_name`;
+
 
 
 

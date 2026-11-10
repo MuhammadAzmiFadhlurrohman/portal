@@ -1,0 +1,33 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portal_ptmsn_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - portal-network
+
+  web:
+    image: nginx:alpine
+    container_name: portal_ptmsn_web
+    restart: unless-stopped
+    ports:
+      - "8099:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+    networks:
+      - portal-network
+
+networks:
+  portal-network:
+    driver: bridge
+

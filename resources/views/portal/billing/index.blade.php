@@ -457,6 +457,11 @@
                                             this.resetFile();
                                             return;
                                         }
+                                        if (file.size > 5 * 1024 * 1024) {
+                                            alert('Ukuran file bukti transfer maksimal 5 MB. File yang Anda pilih berukuran ' + (file.size / 1024 / 1024).toFixed(2) + ' MB.\n\nTips: Silakan gunakan foto tangkapan layar (screenshot) bukti transfer m-Banking / struk agar ukurannya lebih kecil dan proses upload lancar.');
+                                            this.resetFile();
+                                            return;
+                                        }
                                         this.fileName = file.name;
                                         this.fileSize = (file.size / 1024 / 1024).toFixed(2) + ' MB';
                                         this.isImage = file.type.startsWith('image/');
