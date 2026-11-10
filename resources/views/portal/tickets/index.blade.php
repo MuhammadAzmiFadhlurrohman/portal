@@ -4,29 +4,29 @@
 
 @section('content')
 <!-- Full-Width Dark Oceanic Blue Hero Backdrop -->
-<div class="-mx-3 sm:-mx-5 lg:-mx-6 -mt-2.5 sm:-mt-4 px-3 sm:px-5 lg:px-6 pt-3.5 sm:pt-4.5 pb-12 sm:pb-14 hero-network-card !rounded-none !border-x-0 !border-t-0 shadow-md relative overflow-hidden">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 relative z-10">
-        <div class="space-y-0.5">
-            <div class="flex items-center gap-1.5 text-[10.5px] font-mono text-cyan-300 font-medium">
+<div class="-mx-3 sm:-mx-6 lg:-mx-8 -mt-3 sm:-mt-6 px-4 sm:px-6 lg:px-8 pt-5 sm:pt-7 pb-20 sm:pb-24 hero-network-card !rounded-none !border-x-0 !border-t-0 shadow-md relative overflow-hidden">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-3 relative z-10">
+        <div class="space-y-1">
+            <div class="flex items-center gap-1.5 text-[11px] font-mono text-cyan-300 font-medium">
                 <a href="{{ route('portal.dashboard') }}" class="hover:text-white transition-colors">Portal</a>
                 <span class="text-cyan-400/60">/</span>
                 <span class="text-cyan-300 font-bold">Laporan & Tiket</span>
             </div>
-            <h1 class="text-base sm:text-xl font-heading font-extrabold text-white tracking-tight">
+            <h1 class="text-lg sm:text-2xl font-heading font-extrabold text-white tracking-tight">
                 Daftar Tiket & Layanan
             </h1>
-            <p class="text-[11px] sm:text-xs text-slate-300">Pantau progres pengaduan teknis, ubah paket, suspend, dan riwayat perbaikan koneksi Anda.</p>
+            <p class="text-xs text-slate-300">Pantau progres pengaduan teknis, ubah paket, suspend, dan riwayat perbaikan koneksi Anda.</p>
         </div>
 
-        <a id="tour-step-create-ticket" href="{{ route('portal.tickets.create') }}" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white font-heading font-extrabold text-xs shadow-md shadow-sky-500/25 border border-white/20 active:scale-95 transition-all shrink-0 self-start sm:self-center cursor-pointer">
-            <iconify-icon icon="solar:add-circle-bold" width="16" class="shrink-0 text-amber-300"></iconify-icon>
+        <a id="tour-step-create-ticket" href="{{ route('portal.tickets.create') }}" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-2.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white font-heading font-extrabold text-xs sm:text-sm shadow-lg shadow-sky-500/25 border border-white/20 active:scale-95 transition-all shrink-0 self-start sm:self-center cursor-pointer">
+            <iconify-icon icon="solar:add-circle-bold" width="18" class="shrink-0 text-amber-300"></iconify-icon>
             <span class="text-white">Buat Laporan Baru</span>
         </a>
     </div>
 </div>
 
 <!-- Main Content Container Overlapping the Blue Backdrop -->
-<div class="-mt-9 sm:-mt-10 relative z-10 space-y-3 sm:space-y-4 max-w-6xl mx-auto">
+<div class="-mt-14 sm:-mt-16 relative z-10 space-y-3.5 sm:space-y-5 max-w-7xl mx-auto">
 
     <!-- Tour Target: Filter Header & 1 Ticket Data (or Empty State) -->
     <div id="tour-step-tickets-list" class="space-y-3.5 sm:space-y-5">
