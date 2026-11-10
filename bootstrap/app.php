@@ -11,6 +11,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Percayai semua reverse proxy (Apache Host & Docker Nginx) agar HTTPS & IP terbaca akurat
+        $middleware->trustProxies(at: '*');
+
         $middleware->redirectTo(
             guests: function (\Illuminate\Http\Request $request) {
                 if ($request->is('admin*')) {

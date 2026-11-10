@@ -6,6 +6,7 @@ use App\Session\SafeDatabaseSessionHandler;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +25,15 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         \Illuminate\Pagination\Paginator::useTailwind();
+
+        // Paksa skema HTTPS di production atau saat diakses melalui reverse proxy / domain portal
+        if (
+            app()->environment('production') ||
+            (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ||
+            (isset($_SERVER['HTTP_HOST']) && str_contains($_SERVER['HTTP_HOST'], 'portal.ptmsn.co.id'))
+        ) {
+            URL::forceScheme('https');
+        }
 
         // 1. Extend driver database session agar aman dari SQL Error 1366 saat user_id adalah string non-numeric (seperti ID pelanggan 'MS...')
         Session::extend('database', function ($app) {
