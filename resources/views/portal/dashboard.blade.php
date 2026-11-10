@@ -6,13 +6,13 @@
 <div class="space-y-3.5 sm:space-y-5">
 
     <!-- Executive Dark Glassmorphism Hero Card -->
-    <div id="tour-step-hero" class="hero-network-card p-4 sm:p-6 lg:p-7 relative overflow-hidden rounded-2xl sm:rounded-3xl border border-sky-500/30 shadow-xl shadow-sky-950/20">
+    <div id="tour-step-hero" class="hero-network-card p-3.5 sm:p-5 relative overflow-hidden rounded-2xl border border-sky-500/30 shadow-lg shadow-sky-950/20">
         <!-- Ambient Glowing Tech Lighting Orbs (Optimized GPU Containment) -->
-        <div class="absolute -top-16 -right-16 w-56 h-56 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-16 -left-16 w-56 h-56 bg-sky-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -top-12 -right-12 w-44 h-44 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-12 -left-12 w-44 h-44 bg-sky-500/15 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute inset-0 bg-[radial-gradient(rgba(56,189,248,0.08)_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none"></div>
         
-        <div class="relative z-10 space-y-3 sm:space-y-4">
+        <div class="relative z-10 space-y-2.5 sm:space-y-3">
             
             <!-- Top Row: ID, Status Badges & Membership Tenure (Fits on one neat line on mobile) -->
             <div class="flex items-center justify-between gap-2">
@@ -57,7 +57,7 @@
 
                 <!-- Right: Desktop Membership Tenure Pill -->
                 @if($customer->berlangganan_sejak !== '-')
-                    <div class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white/[0.06] border border-white/10 text-cyan-200 text-xs font-medium backdrop-blur-md shadow-2xs shrink-0" title="Total durasi aktif: {{ $customer->subscription_duration_text }}">
+                    <div class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-white/[0.06] border border-white/10 text-cyan-200 text-xs font-medium backdrop-blur-md shadow-2xs shrink-0" title="Total durasi aktif: {{ $customer->subscription_duration_text }}">
                         <iconify-icon icon="solar:calendar-date-bold" class="text-cyan-400 text-xs shrink-0"></iconify-icon>
                         <span>Langganan Sejak {{ $customer->berlangganan_sejak }}</span>
                         <span class="text-cyan-400/40">•</span>
@@ -67,11 +67,11 @@
             </div>
 
             <!-- Middle & Action Row -->
-            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3.5 sm:gap-4 pt-0.5 sm:pt-1">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 sm:gap-3 pt-0.5">
                 
                 <!-- Left: Greeting & Description -->
-                <div class="space-y-1 sm:space-y-1.5">
-                    <h1 class="text-xl sm:text-2xl lg:text-3xl font-heading font-extrabold text-white tracking-tight drop-shadow-sm">
+                <div class="space-y-0.5 sm:space-y-1">
+                    <h1 class="text-base sm:text-lg lg:text-xl font-heading font-extrabold text-white tracking-tight drop-shadow-sm">
                         Halo, {{ $customer->name }}! 👋
                     </h1>
 
@@ -85,22 +85,22 @@
                         </div>
                     @endif
                     
-                    <p class="text-xs sm:text-sm text-slate-300/85 max-w-xl leading-relaxed">
+                    <p class="text-[11px] sm:text-xs text-slate-300/85 max-w-xl leading-relaxed">
                         Pantau performa koneksi internet broadband dan rincian layanan Anda secara real-time.
                     </p>
                 </div>
 
                 <!-- Right: High-Impact Action CTAs (Side by Side on Mobile & Symmetrical) -->
-                <div class="grid grid-cols-2 gap-2 sm:flex sm:items-center sm:gap-2.5 shrink-0 pt-0.5 lg:pt-0">
+                <div class="grid grid-cols-2 gap-2 sm:flex sm:items-center sm:gap-2 shrink-0 pt-0.5 lg:pt-0">
                     <!-- Primary CTA: Lapor Gangguan -->
-                    <a href="{{ route('portal.tickets.create') }}" class="h-10 sm:h-11 inline-flex items-center justify-center gap-1.5 px-3 sm:px-4 rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-heading font-bold text-xs sm:text-sm shadow-md shadow-sky-500/25 hover:shadow-sky-500/35 active:scale-95 transition-all text-center whitespace-nowrap">
-                        <iconify-icon icon="solar:danger-triangle-bold" class="text-amber-300 text-sm sm:text-base shrink-0"></iconify-icon>
+                    <a href="{{ route('portal.tickets.create') }}" class="h-8.5 sm:h-9 inline-flex items-center justify-center gap-1.5 px-3 rounded-xl bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-heading font-bold text-xs shadow-md shadow-sky-500/25 hover:shadow-sky-500/35 active:scale-95 transition-all text-center whitespace-nowrap">
+                        <iconify-icon icon="solar:danger-triangle-bold" class="text-amber-300 text-sm shrink-0"></iconify-icon>
                         <span>Lapor Gangguan</span>
                     </a>
 
                     <!-- Secondary CTA: Upgrade Paket (Soon) -->
-                    <div class="h-10 sm:h-11 inline-flex items-center justify-center gap-1.5 px-3 sm:px-4 rounded-xl bg-white/[0.08] hover:bg-white/[0.12] text-slate-200 border border-white/15 font-heading font-semibold text-xs sm:text-sm shadow-xs cursor-not-allowed select-none text-center whitespace-nowrap transition-all" title="Fitur Upgrade Paket segera hadir">
-                        <iconify-icon icon="solar:round-transfer-vertical-bold" class="text-slate-400 text-sm sm:text-base shrink-0"></iconify-icon>
+                    <div class="h-8.5 sm:h-9 inline-flex items-center justify-center gap-1.5 px-3 rounded-xl bg-white/[0.08] hover:bg-white/[0.12] text-slate-200 border border-white/15 font-heading font-semibold text-xs shadow-xs cursor-not-allowed select-none text-center whitespace-nowrap transition-all" title="Fitur Upgrade Paket segera hadir">
+                        <iconify-icon icon="solar:round-transfer-vertical-bold" class="text-slate-400 text-sm shrink-0"></iconify-icon>
                         <span>Upgrade Paket</span>
                         <span class="px-1.5 py-0.5 rounded-md bg-amber-400/20 border border-amber-300/30 text-amber-300 text-[8.5px] font-mono font-bold tracking-wider uppercase">SOON</span>
                     </div>

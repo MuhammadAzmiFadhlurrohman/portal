@@ -65,10 +65,25 @@
 
         html {
             scroll-behavior: smooth;
+            font-size: 13.5px;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        @media (min-width: 640px) {
+            html {
+                font-size: 13.75px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            html {
+                font-size: 13.5px;
+            }
         }
 
         body {
             font-family: 'Inter', sans-serif;
+            letter-spacing: -0.01em;
         }
 
         /* Smooth Content Entrance Animation */
@@ -160,16 +175,16 @@
 
     <!-- Top Portal Header -->
     <header class="sticky top-0 z-40 glass-header shadow-xs">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 sm:h-18">
+        <div class="max-w-6xl mx-auto px-3 sm:px-5 lg:px-6">
+            <div class="flex items-center justify-between h-13 sm:h-14">
                 
                 <!-- Left: Brand Logo & Portal Badge -->
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2.5">
                     <a href="{{ route('portal.dashboard') }}" class="flex items-center transition-transform hover:opacity-90">
-                        <img src="{{ asset('images/logo/logo-msn.png') }}" alt="PT MSN" class="h-8 sm:h-9 w-auto object-contain">
+                        <img src="{{ asset('images/logo/logo-msn.png') }}" alt="PT MSN" class="h-6.5 sm:h-7 w-auto object-contain">
                     </a>
-                    <div class="hidden sm:flex items-center pl-3 border-l border-slate-200">
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100/90 border border-slate-200/80 shadow-2xs">
+                    <div class="hidden sm:flex items-center pl-2.5 border-l border-slate-200">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100/90 border border-slate-200/80 shadow-2xs">
                             <span class="font-brand font-black text-xs tracking-tight"><span class="text-sky-600 font-extrabold">My</span><span class="text-slate-800">MSN</span></span>
                             <span class="text-[9px] font-heading font-bold text-slate-500 uppercase tracking-wider">Self-Care</span>
                         </span>
@@ -177,47 +192,47 @@
                 </div>
 
                 <!-- Center: Navigation Links (Desktop) -->
-                <nav class="hidden md:flex items-center gap-1 bg-slate-100/90 border border-slate-200 p-1 rounded-2xl">
-                    <a href="{{ route('portal.dashboard') }}" class="px-3.5 py-1.5 rounded-xl text-xs font-heading font-semibold transition-all {{ request()->routeIs('portal.dashboard') ? 'bg-white text-sky-700 shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900 hover:bg-white/60' }}">
+                <nav class="hidden md:flex items-center gap-0.5 bg-slate-100/90 border border-slate-200 p-0.5 rounded-xl">
+                    <a href="{{ route('portal.dashboard') }}" class="px-3 py-1 rounded-lg text-xs font-heading font-semibold transition-all {{ request()->routeIs('portal.dashboard') ? 'bg-white text-sky-700 shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900 hover:bg-white/60' }}">
                         <span class="flex items-center gap-1.5">
-                            <iconify-icon icon="solar:home-smile-bold" width="15" class="{{ request()->routeIs('portal.dashboard') ? 'text-sky-600' : 'text-slate-400' }}"></iconify-icon>
+                            <iconify-icon icon="solar:home-smile-bold" width="14" class="{{ request()->routeIs('portal.dashboard') ? 'text-sky-600' : 'text-slate-400' }}"></iconify-icon>
                             <span>Beranda</span>
                         </span>
                     </a>
-                    <a href="{{ route('portal.billing.index') }}" class="px-3.5 py-1.5 rounded-xl text-xs font-heading font-semibold transition-all {{ request()->routeIs('portal.billing.*') ? 'bg-white text-sky-700 shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900 hover:bg-white/60' }}">
+                    <a href="{{ route('portal.billing.index') }}" class="px-3 py-1 rounded-lg text-xs font-heading font-semibold transition-all {{ request()->routeIs('portal.billing.*') ? 'bg-white text-sky-700 shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900 hover:bg-white/60' }}">
                         <span class="flex items-center gap-1.5">
-                            <iconify-icon icon="solar:wallet-money-bold" width="15" class="{{ request()->routeIs('portal.billing.*') ? 'text-sky-600' : 'text-slate-400' }}"></iconify-icon>
+                            <iconify-icon icon="solar:wallet-money-bold" width="14" class="{{ request()->routeIs('portal.billing.*') ? 'text-sky-600' : 'text-slate-400' }}"></iconify-icon>
                             <span>Tagihan</span>
                         </span>
                     </a>
-                    <a href="{{ route('portal.tickets.index') }}" class="px-3.5 py-1.5 rounded-xl text-xs font-heading font-semibold transition-all {{ request()->routeIs('portal.tickets.*') ? 'bg-white text-sky-700 shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900 hover:bg-white/60' }}">
+                    <a href="{{ route('portal.tickets.index') }}" class="px-3 py-1 rounded-lg text-xs font-heading font-semibold transition-all {{ request()->routeIs('portal.tickets.*') ? 'bg-white text-sky-700 shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900 hover:bg-white/60' }}">
                         <span class="flex items-center gap-1.5">
-                            <iconify-icon icon="solar:ticket-bold" width="15" class="{{ request()->routeIs('portal.tickets.*') ? 'text-sky-600' : 'text-slate-400' }}"></iconify-icon>
+                            <iconify-icon icon="solar:ticket-bold" width="14" class="{{ request()->routeIs('portal.tickets.*') ? 'text-sky-600' : 'text-slate-400' }}"></iconify-icon>
                             <span>Bantuan & Tiket</span>
                         </span>
                     </a>
-                    <a href="{{ route('portal.profile') }}" class="px-3.5 py-1.5 rounded-xl text-xs font-heading font-semibold transition-all {{ request()->routeIs('portal.profile') ? 'bg-white text-sky-700 shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900 hover:bg-white/60' }}">
+                    <a href="{{ route('portal.profile') }}" class="px-3 py-1 rounded-lg text-xs font-heading font-semibold transition-all {{ request()->routeIs('portal.profile') ? 'bg-white text-sky-700 shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900 hover:bg-white/60' }}">
                         <span class="flex items-center gap-1.5">
-                            <iconify-icon icon="solar:user-circle-bold" width="15" class="{{ request()->routeIs('portal.profile') ? 'text-sky-600' : 'text-slate-400' }}"></iconify-icon>
+                            <iconify-icon icon="solar:user-circle-bold" width="14" class="{{ request()->routeIs('portal.profile') ? 'text-sky-600' : 'text-slate-400' }}"></iconify-icon>
                             <span>Profil Akun</span>
                         </span>
                     </a>
                 </nav>
 
                 <!-- Right: User Menu -->
-                <div class="flex items-center gap-2 sm:gap-3">
+                <div class="flex items-center gap-2">
                     <!-- User Profile Dropdown -->
                     <div class="relative" @click.outside="userDropdown = false">
-                        <button @click="userDropdown = !userDropdown" class="flex items-center gap-1.5 sm:gap-2 px-2 py-1 sm:px-2.5 sm:py-1 rounded-2xl bg-white/90 border border-slate-200/90 hover:border-slate-300 hover:shadow-xs transition-all">
+                        <button @click="userDropdown = !userDropdown" class="flex items-center gap-1.5 px-2 py-1 rounded-xl bg-white/90 border border-slate-200/90 hover:border-slate-300 hover:shadow-xs transition-all">
                             <div class="text-right pl-1 pr-0.5 min-w-0">
-                                <div class="text-[11px] sm:text-xs font-heading font-bold text-slate-800 max-w-[95px] sm:max-w-[160px] truncate leading-tight" title="{{ Auth::guard('customer')->user()->name }}">
+                                <div class="text-[11px] font-heading font-bold text-slate-800 max-w-[95px] sm:max-w-[150px] truncate leading-tight" title="{{ Auth::guard('customer')->user()->name }}">
                                     {{ Auth::guard('customer')->user()->name ?? 'Pelanggan' }}
                                 </div>
-                                <div class="text-[9px] sm:text-[10px] font-mono text-slate-500 leading-tight truncate max-w-[95px] sm:max-w-[160px]">
+                                <div class="text-[9px] font-mono text-slate-500 leading-tight truncate max-w-[95px] sm:max-w-[150px]">
                                     {{ Auth::guard('customer')->user()->customer_id ? 'ID: ' . Auth::guard('customer')->user()->customer_id : Auth::guard('customer')->user()->phone }}
                                 </div>
                             </div>
-                            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-sky-600 to-cyan-500 text-white flex items-center justify-center font-heading font-extrabold text-xs sm:text-sm shadow-xs ring-1 ring-sky-100 shrink-0">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-tr from-sky-600 to-cyan-500 text-white flex items-center justify-center font-heading font-extrabold text-xs shadow-xs ring-1 ring-sky-100 shrink-0">
                                 {{ Auth::guard('customer')->user()->initial ?? 'P' }}
                             </div>
                             <iconify-icon icon="solar:alt-arrow-down-linear" class="text-slate-400 text-[10px] sm:text-xs transition-transform duration-200 ml-0.5" :class="userDropdown ? 'rotate-180' : ''"></iconify-icon>
@@ -254,7 +269,7 @@
     </header>
 
     <!-- Main Body Container -->
-    <main class="relative z-10 flex-1 portal-page-enter max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-6 pb-32 md:pb-6">
+    <main class="relative z-10 flex-1 portal-page-enter max-w-6xl w-full mx-auto px-3 sm:px-5 lg:px-6 py-2.5 sm:py-4 pb-28 md:pb-6">
         
         <!-- Modern Flash Alerts (Interactive, Dismissible & Auto-Dismissing) -->
         <div 
