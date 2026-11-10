@@ -384,55 +384,53 @@
 
     </main>
 
-    <!-- Floating Mobile Island Dock (Dark Oceanic Island - Wider & Slimmer) -->
-    <div class="md:hidden fixed bottom-3 inset-x-0 z-40 max-w-[390px] w-full mx-auto px-4">
-        <div class="floating-mobile-dock">
-            <div class="grid grid-cols-4 gap-1 items-center text-center">
-                <!-- Beranda -->
-                <a href="{{ route('portal.dashboard') }}" class="dock-item {{ request()->routeIs('portal.dashboard') ? 'dock-item-active' : '' }} active:scale-95">
-                    <div class="dock-icon">
-                        <iconify-icon icon="solar:home-smile-bold" width="22"></iconify-icon>
-                    </div>
-                    <span class="dock-label font-heading">Beranda</span>
-                    @if(request()->routeIs('portal.dashboard'))
-                        <span class="dock-pill-indicator"></span>
-                    @endif
-                </a>
+    <!-- Floating Mobile Island Dock (Ultra-Sleek Oceanic Glass) -->
+    <div class="md:hidden floating-mobile-dock-wrapper">
+        <nav class="floating-mobile-dock" aria-label="Navigasi Menu Mobile">
+            <!-- Beranda -->
+            <a href="{{ route('portal.dashboard') }}" class="dock-item {{ request()->routeIs('portal.dashboard') ? 'dock-item-active' : '' }}" aria-label="Beranda">
+                <div class="dock-icon">
+                    <iconify-icon icon="solar:home-smile-bold" width="20"></iconify-icon>
+                </div>
+                <span class="dock-label font-heading">Beranda</span>
+                @if(request()->routeIs('portal.dashboard'))
+                    <span class="dock-dot-indicator"></span>
+                @endif
+            </a>
 
-                <!-- Tagihan -->
-                <a href="{{ route('portal.billing.index') }}" class="dock-item {{ request()->routeIs('portal.billing.*') ? 'dock-item-active' : '' }} active:scale-95">
-                    <div class="dock-icon">
-                        <iconify-icon icon="solar:wallet-money-bold" width="22"></iconify-icon>
-                    </div>
-                    <span class="dock-label font-heading">Tagihan</span>
-                    @if(request()->routeIs('portal.billing.*'))
-                        <span class="dock-pill-indicator"></span>
-                    @endif
-                </a>
+            <!-- Tagihan -->
+            <a href="{{ route('portal.billing.index') }}" class="dock-item {{ request()->routeIs('portal.billing.*') ? 'dock-item-active' : '' }}" aria-label="Tagihan">
+                <div class="dock-icon">
+                    <iconify-icon icon="solar:wallet-money-bold" width="20"></iconify-icon>
+                </div>
+                <span class="dock-label font-heading">Tagihan</span>
+                @if(request()->routeIs('portal.billing.*'))
+                    <span class="dock-dot-indicator"></span>
+                @endif
+            </a>
 
-                <!-- Tiket -->
-                <a href="{{ route('portal.tickets.index') }}" class="dock-item {{ request()->routeIs('portal.tickets.*') ? 'dock-item-active' : '' }} active:scale-95">
-                    <div class="dock-icon">
-                        <iconify-icon icon="solar:ticket-bold" width="22"></iconify-icon>
-                    </div>
-                    <span class="dock-label font-heading">Tiket</span>
-                    @if(request()->routeIs('portal.tickets.*'))
-                        <span class="dock-pill-indicator"></span>
-                    @endif
-                </a>
+            <!-- Tiket -->
+            <a href="{{ route('portal.tickets.index') }}" class="dock-item {{ request()->routeIs('portal.tickets.*') ? 'dock-item-active' : '' }}" aria-label="Tiket Bantuan">
+                <div class="dock-icon">
+                    <iconify-icon icon="solar:ticket-sale-bold" width="20"></iconify-icon>
+                </div>
+                <span class="dock-label font-heading">Tiket</span>
+                @if(request()->routeIs('portal.tickets.*'))
+                    <span class="dock-dot-indicator"></span>
+                @endif
+            </a>
 
-                <!-- Profil -->
-                <a href="{{ route('portal.profile') }}" class="dock-item {{ request()->routeIs('portal.profile') ? 'dock-item-active' : '' }} active:scale-95">
-                    <div class="dock-icon">
-                        <iconify-icon icon="solar:user-circle-bold" width="22"></iconify-icon>
-                    </div>
-                    <span class="dock-label font-heading">Profil</span>
-                    @if(request()->routeIs('portal.profile'))
-                        <span class="dock-pill-indicator"></span>
-                    @endif
-                </a>
-            </div>
-        </div>
+            <!-- Profil -->
+            <a href="{{ route('portal.profile') }}" class="dock-item {{ request()->routeIs('portal.profile*') ? 'dock-item-active' : '' }}" aria-label="Profil Akun">
+                <div class="dock-icon">
+                    <iconify-icon icon="solar:user-circle-bold" width="20"></iconify-icon>
+                </div>
+                <span class="dock-label font-heading">Profil</span>
+                @if(request()->routeIs('portal.profile*'))
+                    <span class="dock-dot-indicator"></span>
+                @endif
+            </a>
+        </nav>
     </div>
 
     @auth('customer')
@@ -597,7 +595,7 @@
 
             // 3. Preload menu navigasi utama secara otomatis saat browser idle (santai)
             const prefetchNavLinks = () => {
-                document.querySelectorAll('nav a[href], .bottom-nav a[href]').forEach(a => {
+                document.querySelectorAll('nav a[href], .bottom-nav a[href], .floating-mobile-dock a[href]').forEach(a => {
                     prefetchUrl(a.href);
                 });
             };
