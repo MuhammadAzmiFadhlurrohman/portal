@@ -55,8 +55,8 @@
     <!-- SweetAlert2 (Deferred) -->
     <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Portal Custom CSS (Cached by file modification time) -->
-    <link rel="stylesheet" href="{{ asset('css/portal.css') }}?v={{ file_exists(public_path('css/portal.css')) ? filemtime(public_path('css/portal.css')) : '1.0' }}">
+    <!-- Portal Custom CSS (Force cache bust for mobile browsers) -->
+    <link rel="stylesheet" href="{{ asset('css/portal.css') }}?v=2.2.0-{{ file_exists(public_path('css/portal.css')) ? filemtime(public_path('css/portal.css')) : time() }}">
 
     <style>
         [x-cloak] {
@@ -207,7 +207,7 @@
                     </a>
                     <a href="{{ route('portal.tickets.index') }}" class="px-3 py-1 rounded-lg text-xs font-heading font-semibold transition-all {{ request()->routeIs('portal.tickets.*') ? 'bg-white text-sky-700 shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900 hover:bg-white/60' }}">
                         <span class="flex items-center gap-1.5">
-                            <iconify-icon icon="solar:ticket-bold" width="14" class="{{ request()->routeIs('portal.tickets.*') ? 'text-sky-600' : 'text-slate-400' }}"></iconify-icon>
+                            <iconify-icon icon="solar:ticket-sale-bold" width="14" class="{{ request()->routeIs('portal.tickets.*') ? 'text-sky-600' : 'text-slate-400' }}"></iconify-icon>
                             <span>Bantuan & Tiket</span>
                         </span>
                     </a>
